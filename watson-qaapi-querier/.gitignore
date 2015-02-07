@@ -25,11 +25,12 @@ hs_err_pid*
 .DS_Store
 
 # Maven
+log/
+target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.next
-target/
+release.properties
 
-log/
-xmi/
-
+# credential
+src/main/config/credential.properties
