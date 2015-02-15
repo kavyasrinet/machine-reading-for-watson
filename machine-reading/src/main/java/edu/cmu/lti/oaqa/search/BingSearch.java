@@ -36,12 +36,13 @@ public class BingSearch {
 		// Note that the query should be in single quotes!
 		URI QueryURI = new URI("https", null /* user info */,
 				"api.datamarket.azure.com", -1 /* port */,
-				"/Bing/SearchWeb/v1/Web",
+				"/Bing/Search/Web?",
 				"Query='" + queryString + "'&$top=" + numResults + "&$format=atom",
 				null /* fragment */);
 
 		return QueryURI.toString();
 	}
+	
 	public static Document getResponse( String requestURL , String AccountKey )
 			throws ParserConfigurationException, SAXException, IOException {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -54,7 +55,8 @@ public class BingSearch {
 			if ( VERBOSE ) System.out.println( "Connection URL: " + url );
 			URLConnection uc = url.openConnection();
 			// The username is empty, the Account key is a password
-			String userpass = AccountKey + ":" + AccountKey;
+			//String userpass = AccountKey + ":" + AccountKey;
+			String userpass = AccountKey +":" + AccountKey;
 			String basicAuth = "Basic " + new String( new Base64().encode( userpass.getBytes() ) ) ;
 			uc.setRequestProperty ("Authorization", basicAuth);	
 
@@ -82,6 +84,7 @@ public class BingSearch {
 
 		return doc;
 	}
+	
 	public static List<Result> processResponse(Document doc, String query)
 			throws XPathExpressionException {
 		factory = XPathFactory.newInstance();

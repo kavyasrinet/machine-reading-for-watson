@@ -206,7 +206,7 @@ public class XpSearcher {
     // RetreivalResultList results = XpSearcher.retrieveDocuments(query);
     // System.out.println(results);
 
-    File folder = new File("july108/");
+    File folder = new File("/Users/patrick/Documents/workspace/MachineReading/machine-reading-for-watson/data/dso/questions/TERRORISM-Questions.txt");
     for (final File fileEntry : folder.listFiles()) {
       System.out.println(fileEntry.getName());
       for (String line : Files.readAllLines(fileEntry.toPath(), Charset.defaultCharset())) {
