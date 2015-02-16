@@ -11,6 +11,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -20,19 +22,24 @@ import java.util.regex.Pattern;
 
 import org.apache.hadoop.hdfs.server.namenode.status_jsp;
 
+import de.l3s.boilerpipe.BoilerpipeProcessingException;
+import de.l3s.boilerpipe.extractors.DefaultExtractor;
+import edu.cmu.lti.oaqa.agent.BoilerpipeCachedClient;
+import edu.cmu.lti.oaqa.corpus.BuildPseudoDocument;
 import edu.cmu.lti.oaqa.search.BingSearch;
 import edu.cmu.lti.oaqa.search.BingSearchAgent;
 import edu.cmu.lti.oaqa.search.RetrievalResult;
 
 /**
- * @author Di Wang.
+ * @author Di Wang, Qiang Zhu, Xiaoqiu Huang, Liping Xiong, Yepeng Yin
+ * @since  2015-2-7
  */
 
 public class RetrievalBaselineWorkflow {
 	static boolean done = false;
 
 	public static void main(String[] args) throws URISyntaxException,
-			IOException {
+			IOException, BoilerpipeProcessingException {
 		baseline();
 		// Step 2: do explore search
 		// See XpSearcher as an example
@@ -42,17 +49,17 @@ public class RetrievalBaselineWorkflow {
 
 	}
 	
-	public static void baseline() throws IOException, URISyntaxException {
+	public static void baseline() throws IOException, URISyntaxException, BoilerpipeProcessingException {
 		String accountKey = "wVTtEz9nOezJcYCoTfWSiZ4d3LKRihTXVGyShzIc19E";
-		String InputPath = "/Users/patrick/Documents/workspace/MachineReading/machine-reading-for-watson/data/dso/questions/TERRORISM-Questions.txt";
-		String AnswerPath = "/Users/patrick/Documents/workspace/MachineReading/machine-reading-for-watson/data/dso/gold_standard/TERRORISM-Questions-key.txt";
-		String corpusPath = "/Users/patrick/Documents/workspace/MachineReading/machine-reading-for-watson/explored-corpus";
+		String InputPath = "/Users/patrick/Documents/workspace/machine-reading-for-watson/data/dso/questions/TERRORISM-Questions.txt";
+		String AnswerPath = "/Users/patrick/Documents/workspace/machine-reading-for-watson/data/dso/gold_standard/TERRORISM-Questions-key.txt";
+		String corpusPath = "/Users/patrick/Documents/workspace/machine-reading-for-watson/explored-corpus/file";
 		
 		// Step 1: read input file, load training questions
 		FileWriter corpusfw = null;
-		HashMap<String, String> data = readInputData(InputPath, 0,81);
-		HashMap<String, Integer> answer = new HashMap<>();
-		int total = readAnswer(AnswerPath, answer, 0,81);
+		HashMap<String, String> questions = readInputData(InputPath, 0,81);
+		HashMap<String, Integer> answers = new HashMap<>();
+		int total = readAnswer(AnswerPath, answers, 0,81);
 
 		BingSearchAgent bsa = new BingSearchAgent();
 		bsa.initialize(accountKey);
@@ -65,29 +72,60 @@ public class RetrievalBaselineWorkflow {
 		int appear = 0;
 		int index = 0;
 		String content = null;
-		for (String qid : data.keySet()) {
+		BoilerpipeCachedClient client = new BoilerpipeCachedClient();
+		for (String qid : questions.keySet()) {
+			System.out.println("Processing " + index);
 			List<RetrievalResult> result = bsa.retrieveDocuments(qid,
-					data.get(qid), keyTerms, keyPhrases);
+					questions.get(qid), keyTerms, keyPhrases);
 			corpusfw = new FileWriter(corpusPath+index);
 			for (int i = 0; i < result.size(); i++) {
 				RetrievalResult rr = result.get(i);
 				if (!done) {
-					appear += getAppearance(answer, rr.getText());
-					content = getContent(rr);
-					appear += getAppearance(answer,content);
+					appear += getAppearance(answers, rr.getText());
+					content = client.fetch(rr.getUrl());
+					appear += getAppearance(answers,content);
 				}
 				// write corpus to file
 				corpusfw.write(rr.getText()+content);
 			}
 			corpusfw.close();
+			index++;
 		}
 		
+		// generate pseudo document
+		BuildPseudoDocument bpd = new BuildPseudoDocument();
+		bpd.setVerbose(true);
+		HashMap<String, ArrayList<String>> pseduoQueries = bpd.buildPseduoDoc(corpusPath, questions);
+		
+		// get keywords from relevant sentences
+		index = 0;
+		for (String q : pseduoQueries.keySet()) {
+			System.out.println("Processing " + index);
+			List<RetrievalResult> result = bsa.retrieveDocuments(q,
+					pseduoQueries.get(q).toString(), keyTerms, keyPhrases);
+			//corpusfw = new FileWriter(corpusPath+index);
+			for (int i = 0; i < result.size(); i++) {
+				RetrievalResult rr = result.get(i);
+				if (!done) {
+					appear += getAppearance(answers, rr.getText());
+					content = client.fetch(rr.getUrl());
+					appear += getAppearance(answers,content);
+				}
+				// write corpus to file
+				//corpusfw.write(rr.getText()+content);
+			}
+			//corpusfw.close();
+			index++;
+		}
 		
 		System.out.println("the recall is :" + ((double) appear / total));
 
 	}
 
 	public static int getAppearance(HashMap<String, Integer> map, String text) {
+		if (map == null || text == null || text.length() == 0) {
+			return 0 ;
+		}
 		int count = 0;
 		int already = 0;
 
@@ -164,9 +202,9 @@ public class RetrievalBaselineWorkflow {
 		return count;
 	}
 	
-	public static String getContent(RetrievalResult rr) {
+	public static String getContent(RetrievalResult rr) throws BoilerpipeProcessingException {
 		URL url;
-		String result = "";
+		String html = "";
 		try {
 			// get URL content
 			url = new URL(rr.getUrl());
@@ -178,7 +216,7 @@ public class RetrievalBaselineWorkflow {
 			 
 			String inputLine = "";
 			while ((inputLine = br.readLine()) != null) {
-				result += inputLine;
+			html += inputLine;
 			}
  
 			br.close();
@@ -189,6 +227,6 @@ public class RetrievalBaselineWorkflow {
 			e.printStackTrace();
 		}
 		
-		return result;
+		return DefaultExtractor.getInstance().getText(html);
 	}
 }
