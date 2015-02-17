@@ -32,37 +32,102 @@ import edu.cmu.lti.oaqa.search.RetrievalResult;
 
 /**
  * @author Di Wang, Qiang Zhu, Xiaoqiu Huang, Liping Xiong, Yepeng Yin
- * @since  2015-2-7
+ * @since 2015-2-7
  */
 
 public class RetrievalBaselineWorkflow {
 	static boolean done = false;
+	static String accountKey = "TT15WkPtBHfSFTPRJLAMsEgjeaII0J8A7wAEP9J/Hk4";
+	static String QuestionPath = "/Users/patrick/Documents/workspace/machine-reading-for-watson/data/dso/questions/TERRORISM-Questions.txt";
+	static String AnswerPath = "/Users/patrick/Documents/workspace/machine-reading-for-watson/data/dso/gold_standard/TERRORISM-Questions-key.txt";
+	static String corpusPath = "/Users/patrick/Documents/workspace/machine-reading-for-watson/explored-corpus/file";
 
 	public static void main(String[] args) throws URISyntaxException,
 			IOException, BoilerpipeProcessingException {
-		baseline();
-		// Step 2: do explore search
-		// See XpSearcher as an example
 
-		// Step 3: read gold standard files, evaluate recalls of training, dev,
-		// testing sets
+		baseline();
+		 //iterateExpasion();
 
 	}
-	
-	public static void baseline() throws IOException, URISyntaxException, BoilerpipeProcessingException {
-		String accountKey = "wVTtEz9nOezJcYCoTfWSiZ4d3LKRihTXVGyShzIc19E";
-		String InputPath = "/Users/patrick/Documents/workspace/machine-reading-for-watson/data/dso/questions/TERRORISM-Questions.txt";
-		String AnswerPath = "/Users/patrick/Documents/workspace/machine-reading-for-watson/data/dso/gold_standard/TERRORISM-Questions-key.txt";
-		String corpusPath = "/Users/patrick/Documents/workspace/machine-reading-for-watson/explored-corpus/file";
-		
+
+	public static void iterateExpasion() throws IOException,
+			URISyntaxException, BoilerpipeProcessingException {
 		// Step 1: read input file, load training questions
+		HashMap<String, String> questions = readInputData(QuestionPath, 80, 96);
+		HashMap<String, HashMap<String, Integer>> answers = new HashMap<>();
+		int total = readAnswer(AnswerPath, answers, 80, 96);
+		int appear = 0;
+
+		// Step 2: evaluate training set, combine questions and answers
+		appear = sourceExpansion(questions, answers, total, false);
+
+		// get keywords from relevant sentences
+		BuildPseudoDocument bpd = new BuildPseudoDocument();
+		// bpd.setVerbose(true);
+		HashMap<String, ArrayList<String>> pseduoQueries = bpd.buildPseduoDoc(
+				corpusPath, questions);
+
+		// do another iteration
+		questions.clear();
+		for (String q : pseduoQueries.keySet()) {
+			ArrayList<String> keywords = pseduoQueries.get(q);
+			String query = "";
+			for (String word : keywords) {
+				query += word + " ";
+			}
+			System.out.println(query);
+			questions.put(q, query);
+		}
+
+		appear += sourceExpansion(questions, answers, total, false);
+
+		System.out.println("The recall of traing set is :"
+				+ ((double) appear / total));
+	}
+
+	public static void baseline() throws IOException, URISyntaxException,
+			BoilerpipeProcessingException {
+		// training 70, dev 10, test 16
+
+		// Step 1: read input file, load training questions
+		HashMap<String, String> questions = readInputData(QuestionPath, 0, 69);
+		HashMap<String, HashMap<String, Integer>> answers = new HashMap<>();
+		int total = 0;
+		int appear = 0;
+
+		// Step 2: evaluate training set, combine questions and answers
+		total = readAnswer(AnswerPath, answers, 0, 69);
+		appear = sourceExpansion(questions, answers, total, true);
+		System.out.println("The recall of traing set is :"
+				+ ((double) appear / total));
+
+		// Step 3: evaluate dev set, only questions
+//		done = false;
+//		questions = readInputData(QuestionPath, 70, 79);
+//		total = readAnswer(AnswerPath, answers, 70, 79);
+//		appear = sourceExpansion(questions, answers, total,
+//				false);
+//		System.out.println("The recall of development set is :"
+//				+ ((double) appear / total));
+		
+//		// Step 4: evaluate test set, only questions
+//		done = false;
+//		questions = readInputData(QuestionPath, 80, 96);
+//		total = readAnswer(AnswerPath, answers, 80, 96);
+//		appear = sourceExpansion(questions, answers, total,
+//				false);
+//		System.out.println("The recall of test set is :"
+//				+ ((double) appear / total));
+	}
+
+	public static int sourceExpansion(HashMap<String, String> questions,
+			HashMap<String, HashMap<String, Integer>> answers, int total,
+			boolean combine) throws URISyntaxException, IOException {
 		FileWriter corpusfw = null;
-		HashMap<String, String> questions = readInputData(InputPath, 0,81);
-		HashMap<String, Integer> answers = new HashMap<>();
-		int total = readAnswer(AnswerPath, answers, 0,81);
 
 		BingSearchAgent bsa = new BingSearchAgent();
 		bsa.initialize(accountKey);
+		// set retrieve document size
 		bsa.setResultSetSize(10);
 
 		ArrayList<String> keyTerms = new ArrayList<>();
@@ -77,70 +142,69 @@ public class RetrievalBaselineWorkflow {
 			System.out.println("Processing " + index);
 			List<RetrievalResult> result = bsa.retrieveDocuments(qid,
 					questions.get(qid), keyTerms, keyPhrases);
-			corpusfw = new FileWriter(corpusPath+index);
+			corpusfw = new FileWriter(corpusPath + index);
 			for (int i = 0; i < result.size(); i++) {
 				RetrievalResult rr = result.get(i);
 				if (!done) {
-					appear += getAppearance(answers, rr.getText());
-					content = client.fetch(rr.getUrl());
-					appear += getAppearance(answers,content);
+					appear += getAppearance(answers, rr.getText(), total);
+					//content = client.fetch(rr.getUrl());
+					//appear += getAppearance(answers, content, total);
 				}
 				// write corpus to file
-				corpusfw.write(rr.getText()+content);
+				corpusfw.write(rr.getText() + content);
 			}
+
+			if (combine) {
+				HashMap<String, Integer> answer = answers.get(qid);
+				for (String candidate : answer.keySet()) {
+					result = bsa.retrieveDocuments(qid, candidate, keyTerms,
+							keyPhrases);
+					for (int i = 0; i < result.size(); i++) {
+						RetrievalResult rr = result.get(i);
+						if (!done) {
+							appear += getAppearance(answers, rr.getText(),
+									total);
+							//content = client.fetch(rr.getUrl());
+							//appear += getAppearance(answers, content, total);
+						}
+						// write corpus to file
+						corpusfw.write(rr.getText() + content);
+					}
+				}
+			}
+
 			corpusfw.close();
 			index++;
 		}
-		
-		// generate pseudo document
-		BuildPseudoDocument bpd = new BuildPseudoDocument();
-		bpd.setVerbose(true);
-		HashMap<String, ArrayList<String>> pseduoQueries = bpd.buildPseduoDoc(corpusPath, questions);
-		
-		// get keywords from relevant sentences
-		index = 0;
-		for (String q : pseduoQueries.keySet()) {
-			System.out.println("Processing " + index);
-			List<RetrievalResult> result = bsa.retrieveDocuments(q,
-					pseduoQueries.get(q).toString(), keyTerms, keyPhrases);
-			//corpusfw = new FileWriter(corpusPath+index);
-			for (int i = 0; i < result.size(); i++) {
-				RetrievalResult rr = result.get(i);
-				if (!done) {
-					appear += getAppearance(answers, rr.getText());
-					content = client.fetch(rr.getUrl());
-					appear += getAppearance(answers,content);
-				}
-				// write corpus to file
-				//corpusfw.write(rr.getText()+content);
-			}
-			//corpusfw.close();
-			index++;
-		}
-		
-		System.out.println("the recall is :" + ((double) appear / total));
 
+		return appear;
 	}
 
-	public static int getAppearance(HashMap<String, Integer> map, String text) {
+	public static int getAppearance(
+			HashMap<String, HashMap<String, Integer>> map, String text,
+			int total) {
 		if (map == null || text == null || text.length() == 0) {
-			return 0 ;
+			return 0;
 		}
 		int count = 0;
-		int already = 0;
-
-		for (String answer : map.keySet()) {
-			if (map.get(answer) > 0) {
-				if (text.contains(answer)) {
-					map.put(answer, 0);
-					count++;
+		int found = 0;
+		for (String qid : map.keySet()) {
+			HashMap<String, Integer> answers = map.get(qid);
+			for (String answer : answers.keySet()) {
+				if (answers.get(answer) > 0) {
+					if (text.contains(answer)) {
+						answers.put(answer, 0);
+						found++;
+						count++;
+					}
+				} else {
+					found++;
 				}
-			} else {
-				already++;
 			}
+			map.put(qid, answers);
 		}
 
-		if (already == map.size()) {
+		if (found == total) {
 			done = true;
 		}
 
@@ -154,8 +218,8 @@ public class RetrievalBaselineWorkflow {
 		int read = 0;
 		String line = null;
 		do {
+			line = scan.nextLine();
 			if (read >= start) {
-				line = scan.nextLine();
 				result.put(line.split("\\|")[0], line.split("\\|")[1]);
 			}
 			read++;
@@ -165,68 +229,48 @@ public class RetrievalBaselineWorkflow {
 		return result;
 	}
 
-//	public static int countWords(String word, String text) {
-//		Pattern p = Pattern.compile(word);
-//		Matcher m = p.matcher(text);
-//		
-//		if (m.find()) {
-//			return 1;
-//		}else{
-//			return 0;
-//		}
-//	}
-
-	public static int readAnswer(String path, HashMap<String,Integer> result,
-			int start, int end) throws FileNotFoundException {
+	/*
+	 * Read Answer from file that in range of line [start, end].
+	 * 
+	 * @param path Path of file
+	 * 
+	 * @param answer Read answer. The key of outer hashmap is qid. The key of
+	 * inner hashmap is candidate answer and the value is appearance time.
+	 * 
+	 * @param start Start line number.
+	 * 
+	 * @param end End line number.
+	 * 
+	 * @return Total number of candidate answers.
+	 */
+	public static int readAnswer(String path,
+			HashMap<String, HashMap<String, Integer>> answer, int start, int end)
+			throws FileNotFoundException {
 		int count = 0;
 		int read = 0;
 		Scanner scan = new Scanner(new File(path));
 
 		String line = null;
 		do {
+			line = scan.nextLine();
 			if (read >= start) {
-				line = scan.nextLine();
-				String answers[] = line.split("[|]");
+				HashMap<String, Integer> result = new HashMap<>();
+				String answers[] = line.substring(line.indexOf(' ') + 1).split(
+						"[|]");
 				for (int i = 0; i < answers.length; i++) {
+					// remove the '-' in the date
 					String temp = answers[i].replace("-", " ");
 					if (!result.containsKey(temp)) {
 						result.put(answers[i], 1);
 						count++;
-					} 
+					}
 				}
+				answer.put(line.substring(0, line.indexOf(' ')), result);
 			}
 			read++;
 		} while (scan.hasNext() && read < end);
 		scan.close();
 
 		return count;
-	}
-	
-	public static String getContent(RetrievalResult rr) throws BoilerpipeProcessingException {
-		URL url;
-		String html = "";
-		try {
-			// get URL content
-			url = new URL(rr.getUrl());
-			URLConnection conn = url.openConnection();
- 
-			// open the stream and put it into BufferedReader
-			 conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-GB;     rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13 (.NET CLR 3.5.30729)");
-			 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-			 
-			String inputLine = "";
-			while ((inputLine = br.readLine()) != null) {
-			html += inputLine;
-			}
- 
-			br.close();
-  
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return DefaultExtractor.getInstance().getText(html);
 	}
 }

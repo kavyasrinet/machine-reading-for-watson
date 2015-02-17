@@ -7,6 +7,11 @@ public class WebSearchCache {
 	private static String path;
 	private Hashtable<String, Object> tableInMemory = new Hashtable<String, Object>();
 
+	private static boolean VERBOSE = false;
+	public static void setVerbose( boolean flag ){
+		VERBOSE = flag;
+	}
+	
 	public WebSearchCache(String cachePath) {
 		this.path=cachePath;
 	}
@@ -61,10 +66,14 @@ public class WebSearchCache {
 
 		tableInMemory.put(RetrievalEngine, table);
 
-		System.out.println("Writing " + RetrievalEngine + " Cache File");
-
+		if (VERBOSE) {
+			System.out.println("Writing " + RetrievalEngine + " Cache File");
+		}
+		
 		String fileName = path + RetrievalEngine + "Cache.txt";
-		System.out.println( "Trying to use cache file: " + fileName );
+		if (VERBOSE) {
+			System.out.println( "Trying to use cache file: " + fileName );
+		}
 		ObjectOutputStream outputStream = null;
 		try {
 			outputStream = new ObjectOutputStream(

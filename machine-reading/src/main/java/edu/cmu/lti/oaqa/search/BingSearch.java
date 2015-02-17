@@ -139,7 +139,8 @@ public class BingSearch {
 			}
 		}
 
-		System.out.println("Bing reply size: " + Reply.size());
+		if(VERBOSE)
+			System.out.println("Bing reply size: " + Reply.size());
 
 		return Reply;
 	}
