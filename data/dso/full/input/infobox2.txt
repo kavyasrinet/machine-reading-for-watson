@@ -1,0 +1,100 @@
+1|How many people were injured in 2007 Karachi bombing?
+2|How many people were wounded in 2007 Karachi bombing?
+3|What was the attack type of 2007 Karachi bombing?
+4|What was/were the target(s) of 2007 Karachi bombing
+5|When did 2007 Karachi bombing happen?
+6|Who were the perpetrators in 2007 Karachi bombing?
+7|Who was responsible for 2007 Karachi bombing?
+8|Who was the mastermind of 2007 Karachi bombing?
+9|When did 2007 Karbala bombings happen?
+10|Where did 2007 Karbala bombings happen?
+11|How many people were injured in 2007 Ankara bombing?
+12|How many people were wounded in 2007 Ankara bombing?
+13|Who were the perpetrators in Bojay�� massacre?
+14|Who was responsible for 2007 Ankara bombing?
+15|When did Bojay�� massacre happen?
+16|Who was the mastermind of 2007 Ankara bombing?
+17|When did 2007 Ankara bombing happen?
+18|Who were the perpetrators in 2007 Ankara bombing?
+19|Where did 2007 Ankara bombing happen?
+20|How many people were injured in 7 July 2005 London bombings?
+21|Who was the mastermind of 7 July 2005 London bombings?
+22|Who was responsible for 7 July 2005 London bombings?
+23|Who were the perpetrators in 7 July 2005 London bombings?
+24|Where did Bojay�� massacre happen?
+25|What was/were the target(s) of 7 July 2005 London bombings
+26|What was the attack type of 7 July 2005 London bombings?
+27|How many people were wounded in 7 July 2005 London bombings?
+28|Where did 2007 Karachi bombing happen?
+29|What was/were the target(s) of 2007 Ankara bombing
+30|What was the attack type of 2007 Ankara bombing?
+31|Who was responsible for 1996 Docklands bombing?
+32|Where did 1996 Docklands bombing happen?
+33|What was/were the target(s) of Bojay�� massacre
+34|Who were the perpetrators in 1996 Docklands bombing?
+35|When did 1996 Docklands bombing happen?
+36|How many people were injured in Bojay�� massacre?
+37|Who was the mastermind of Bojay�� massacre?
+38|What was the attack type of Bojay�� massacre?
+39|How many people were wounded in Bojay�� massacre?
+40|Who was responsible for Bojay�� massacre?
+41|How many people were injured in 2007 Karbala bombings?
+42|How many people were wounded in 2007 Karbala bombings?
+43|Who was responsible for 2007 Karbala bombings?
+44|Who was the mastermind of 2007 Karbala bombings?
+45|Where did 2007 Kirkuk bombings happen?
+46|When did 2007 Kirkuk bombings happen?
+47|What was the attack type of 2007 Karbala bombings?
+48|What was/were the target(s) of 2007 Karbala bombings
+49|Who was the mastermind of 2003 Jordanian embassy bombing in Baghdad?
+50|Who was responsible for 2003 Jordanian embassy bombing in Baghdad?
+51|Who were the perpetrators in 2003 Jordanian embassy bombing in Baghdad?
+52|When did 2003 Jordanian embassy bombing in Baghdad happen?
+53|Where did 2003 Jordanian embassy bombing in Baghdad happen?
+54|What was/were the target(s) of 1996 Docklands bombing
+55|Who were the perpetrators in 2007 Karbala bombings?
+56|What was the attack type of 1996 Docklands bombing?
+57|How many people were wounded in 1996 Docklands bombing?
+58|Who was the mastermind of 1996 Docklands bombing?
+59|How many people were injured in 1996 Docklands bombing?
+60|Who were the perpetrators in 2007 Kirkuk bombings?
+61|What was/were the target(s) of 2003 Jordanian embassy bombing in Baghdad
+62|Where did 2003 Karbala bombings happen?
+63|When did 2003 Karbala bombings happen?
+64|Who were the perpetrators in 2003 Karbala bombings?
+65|Who was responsible for 2003 Karbala bombings?
+66|Who was the mastermind of 2003 Karbala bombings?
+67|How many people were injured in 2003 Karbala bombings?
+68|How many people were injured in 2003 Jordanian embassy bombing in Baghdad?
+69|What was the attack type of 2003 Jordanian embassy bombing in Baghdad?
+70|How many people were wounded in 2003 Jordanian embassy bombing in Baghdad?
+71|Who was responsible for 2004 Irbil bombings?
+72|Who was the mastermind of 2004 Irbil bombings?
+73|When did 2004 Irbil bombings happen?
+74|Who were the perpetrators in 2004 Irbil bombings?
+75|How many people were injured in 2004 Irbil bombings?
+76|How many people were wounded in 2004 Irbil bombings?
+77|Where did 2004 Irbil bombings happen?
+78|What was/were the target(s) of 2003 Karbala bombings
+79|What was the attack type of 2003 Karbala bombings?
+80|How many people were wounded in 2003 Karbala bombings?
+81|What was the attack type of 2006 Bangkok bombings?
+82|Who was responsible for 2006 Bangkok bombings?
+83|Who was the mastermind of 2006 Bangkok bombings?
+84|How many people were injured in 2006 Bangkok bombings?
+85|How many people were wounded in 2006 Bangkok bombings?
+86|Where did 2006 Bangkok bombings happen?
+87|What was/were the target(s) of 2004 Irbil bombings
+88|Who were the perpetrators in 2006 Bangkok bombings?
+89|When did 2006 Bangkok bombings happen?
+90|What was the attack type of 2004 Irbil bombings?
+91|What was the attack type of 2006 Hat Yai bombings?
+92|What was/were the target(s) of 2006 Hat Yai bombings
+93|How many people were injured in 2006 Hat Yai bombings?
+94|How many people were wounded in 2006 Hat Yai bombings?
+95|Who was the mastermind of 2006 Hat Yai bombings?
+96|Who was responsible for 2006 Hat Yai bombings?
+97|Who were the perpetrators in 2006 Hat Yai bombings?
+98|When did 2006 Hat Yai bombings happen?
+99|Where did 2006 Hat Yai bombings happen?
+100|What was/were the target(s) of 2006 Bangkok bombings

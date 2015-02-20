@@ -1,0 +1,100 @@
+1|How many people were injured in 2008 Bin Salman Mosque bombing?
+2|Where did Bath School disaster happen?
+3|Who was the mastermind of 2008 Bin Salman Mosque bombing?
+4|What was the attack type of 2008 Bin Salman Mosque bombing?
+5|How many people were wounded in 2008 Bin Salman Mosque bombing?
+6|Where did 11 April 2007 Algiers bombings happen?
+7|When did 11 April 2007 Algiers bombings happen?
+8|Who was responsible for Deer Creek Middle School?
+9|Who were the perpetrators in 11 April 2007 Algiers bombings?
+10|Who was the mastermind of Deer Creek Middle School?
+11|Who was responsible for 11 April 2007 Algiers bombings?
+12|Who was the mastermind of 11 April 2007 Algiers bombings?
+13|How many people were injured in 11 April 2007 Algiers bombings?
+14|What was/were the target(s) of 2008 Bin Salman Mosque bombing
+15|How many people were wounded in 11 April 2007 Algiers bombings?
+16|Where did Deer Creek Middle School happen?
+17|What was the attack type of 11 April 2007 Algiers bombings?
+18|When did Deer Creek Middle School happen?
+19|What was/were the target(s) of 11 April 2007 Algiers bombings
+20|Who were the perpetrators in Deer Creek Middle School?
+21|Where did 2004 Australian embassy bombing in Jakarta happen?
+22|What was/were the target(s) of Deer Creek Middle School
+23|What was/were the target(s) of Guildford pub bombings
+24|What was the attack type of Deer Creek Middle School?
+25|What was the attack type of Guildford pub bombings?
+26|How many people were wounded in Deer Creek Middle School?
+27|How many people were injured in Deer Creek Middle School?
+28|When did 21 April 2004 Basra bombings happen?
+29|Where did Warrington bomb attacks happen?
+30|What was/were the target(s) of 21 April 2004 Basra bombings
+31|What was the attack type of 21 April 2004 Basra bombings?
+32|How many people were wounded in 21 April 2004 Basra bombings?
+33|How many people were injured in 21 April 2004 Basra bombings?
+34|Who was the mastermind of 21 April 2004 Basra bombings?
+35|Who was responsible for 21 April 2004 Basra bombings?
+36|Who were the perpetrators in 21 April 2004 Basra bombings?
+37|When did Guildford pub bombings happen?
+38|Who were the perpetrators in Guildford pub bombings?
+39|What was/were the target(s) of Sbarro restaurant suicide bombing
+40|How many people were injured in 2004 Australian embassy bombing in Jakarta?
+41|Where did Guildford pub bombings happen?
+42|How many people were injured in Guildford pub bombings?
+43|Who was responsible for 2004 Australian embassy bombing in Jakarta?
+44|How many people were wounded in Guildford pub bombings?
+45|Who was the mastermind of 2004 Australian embassy bombing in Jakarta?
+46|Who was responsible for Guildford pub bombings?
+47|When did 2004 Australian embassy bombing in Jakarta happen?
+48|Who was the mastermind of Guildford pub bombings?
+49|When did Warrington bomb attacks happen?
+50|Who were the perpetrators in 2004 Australian embassy bombing in Jakarta?
+51|How many people were wounded in Sbarro restaurant suicide bombing?
+52|How many people were injured in Sbarro restaurant suicide bombing?
+53|Who was responsible for Warrington bomb attacks?
+54|What was the attack type of Sbarro restaurant suicide bombing?
+55|Who were the perpetrators in Warrington bomb attacks?
+56|When did Sbarro restaurant suicide bombing happen?
+57|Who was the mastermind of Warrington bomb attacks?
+58|Who were the perpetrators in Sbarro restaurant suicide bombing?
+59|How many people were injured in Warrington bomb attacks?
+60|Who was responsible for Sbarro restaurant suicide bombing?
+61|How many people were wounded in Warrington bomb attacks?
+62|Who was the mastermind of Sbarro restaurant suicide bombing?
+63|What was the attack type of Warrington bomb attacks?
+64|What was/were the target(s) of Warrington bomb attacks
+65|What was the attack type of 1996 Manchester bombing?
+66|Where did Alma happen?
+67|What was/were the target(s) of 1996 Manchester bombing
+68|When did Alma happen?
+69|Where did Sbarro restaurant suicide bombing happen?
+70|Who were the perpetrators in Alma?
+71|How many people were wounded in 1996 Manchester bombing?
+72|How many people were injured in Alma?
+73|How many people were injured in 1996 Manchester bombing?
+74|Who was the mastermind of Alma?
+75|Who was the mastermind of 1996 Manchester bombing?
+76|Who was responsible for Alma?
+77|Who was responsible for 1996 Manchester bombing?
+78|When did 7 July 2005 London bombings happen?
+79|Where did 7 July 2005 London bombings happen?
+80|What was/were the target(s) of Bath School disaster
+81|What was the attack type of Bath School disaster?
+82|How many people were wounded in Bath School disaste?
+83|How many people were injured in Bath School disaster?
+84|Who was the mastermind of Bath School disaster?
+85|Who was responsible for Bath School disaster?
+86|Who were the perpetrators in Bath School disaster?
+87|When did 1996 Manchester bombing happen?
+88|What was/were the target(s) of Alma
+89|When did Bath School disaster happen?
+90|Who were the perpetrators in 1996 Manchester bombing?
+91|Where did 2008 Bin Salman Mosque bombing happen?
+92|What was/were the target(s) of 2004 Australian embassy bombing in Jakarta
+93|How many people were wounded in Alma?
+94|Where did 1996 Manchester bombing happen?
+95|What was the attack type of Alma?
+96|How many people were wounded in 2004 Australian embassy bombing in Jakarta?
+97|Who was responsible for 2008 Bin Salman Mosque bombing?
+98|What was the attack type of 2004 Australian embassy bombing in Jakarta?
+99|When did 2008 Bin Salman Mosque bombing happen?
+100|Who were the perpetrators in 2008 Bin Salman Mosque bombing?

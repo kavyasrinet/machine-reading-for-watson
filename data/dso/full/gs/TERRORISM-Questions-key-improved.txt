@@ -1,0 +1,96 @@
+1 Malaysia|Al Islam school
+2 Nairobi|Westlands|Kenya
+3 Bali|JW Marriott hotel|Kuningan|Jakarta|Ritz-Carlton hotel|Metro Manila|Zamboanga|Philippines
+4 Kuningan|Jakarta|Islamabad|Pakistan
+5 Kuningan|Jakarta
+6 Libya|Benghazi|
+7 Surakarta|Solo|central Java
+8 Bali|Indonesia|Kuta
+9 Sari Club
+10 Pakistan|Czechoslovakia|Vietnam|United States|Denmark|Germany|Saudi Arabia|Britain|Afghanistan|Lebanon
+11 September 2013|21 September 2013
+12 September 2013|21 September 2013
+13 2003|2005|24 December 2000
+14 20 September 2008|5 August 2003|17 July 2009|2008|2003|2009
+15 2008|2003|2009
+16 2009
+17 17 September 2009
+18 1993
+19 20 September 2008
+20 12 October 2002 23:05|12 October 2002
+21 Umar Patek|Jemaah Islamiyah|Jemaah Islamiah|al-Qaeda|Dulmatin|Noordin Top|Imam Samudra|Hambali|Azahari bin Husin||Azahari Husin
+22 Jemaah Islamiyah|al-Qaeda|Pakistani Taleban|Azahari Husin
+23 foreigners|wealthy Kenyans|expatriates|diplomats|UN workers|Christians
+24 Abu Bakar Bashir
+25 Siti Rahmah|Munfiatun al Fitri|Arina Rahmah|Arina Rochma|Novi Lutfiati|Ari Aryani
+26 al-Shabaab|Al-Shabaab
+27 Rusman Gunawan|Al-Qaeda|Majid Khan|Hambali|Khalid Sheik Mohammed|Noordin Top|Mohammed Jibril Abdurahman|Ali Muhammad bin Adullah|Syaefudin Zubri|Riduan Isamuddin|Jemaah Islamiyah|Jemaah Islamiah
+28 al-Shabaab
+29 al-Shabaab|Ahmed Godane
+30 al-Shabaab
+31 Jemaah Islamiyah|Jemaah Islamiah
+32 Abu Sayyaf|KMM|Kumpulan Militant Malaysia|MILF|Moro Islamic Liberation Front in Southern Philippines|Al-Qaeda|Rajah Solaiman Movement
+33 Hambali|Riduan Isamuddin
+34 FBI
+35 Marwan|Zulkarnaen|Aris Sumarsono|Daud|Mustaqim|Zulkifli bin Hir|Sunarto bin Kartodihardjo alias Adung|Sunarto bin Kartodihardjo|Adung|Noordin Mohammad Top
+36 Umar Patek|Dulmatin|Riduan Isamuddin|Hambali|Jemaah Islamiyah|Jemaah Islamiah
+37 Zulkarnaen|Aris Sumarsono|Daud 
+38 Abdullah Sungkar|Abu Bakar Bashir
+39 Hambali|Noordin Top|Mohamad Fadzulla|Abu Uswah|al-Dakkak|Riduan Isamuddin|Noordin Mohammad Top
+40 Hambali|Noordin Top|Riduan Isamuddin|Noordin Mohammad Top
+41 Autthaya|Southern Thailand|Thailand
+42 jungles of Patikul|Patikul|Sulu|Philippines|southern Philippines|Jolo island|southern Mindanao
+43 Sulawesi|Afghanistan|Mindanao|southern Philippines|Maluku|Poso|Malaysia|Kashmir|Aceh|Jolo|Australia
+44 South Sulawesi|West Nusa Tenggara|Malaysian universities|Malaysian technical institutes|Solo|Mindanao|Metro Manila|Java|Poso|Islamic boarding schools|madrassas|Indonesia|Malaysia|Singapore|Philippines
+45 Sulawesi Sea|Sulu|Philippines|southern Philippines|Sabah|Kandal province|Cham|Myanmar|Malaysia|southern Thailand
+46 Encep Nurjaman|Riduan Isamuddin
+47 bomb-making|explosives|electronics
+48 organization|bomb assembling|weaponry
+49 Islamic Military Academy|Luqmanul Hakiem Islamic school|Lukmanul Hakim|Al Islam|Ngruki school|Hidyatullah Islamic school|Al Muaddib Islamic Boarding School in Cilacap
+50 2003-08-11|11 August 2003|August 2003
+64 1968-08-11|11 August 1968
+65 2009-09-17|17 September 2009
+66 2009-09-17|17 September 2009
+67 Amal Ahmed Al-Sadah|Khadijah Sharif|Khairiah Sabar|Najwa Ghanhem|Siham Sabar|Najwa bin Laden|Amal Al-Sadah
+68 Amal Ahmed Al-Sadah|Khadijah Sharif|Khairiah Sabar|Najwa Ghanhem|Siham Sabar|Najwa bin Laden|Amal Al-Sadah
+69 Jemaah Islamiyah|Jemaah Islamiyah|Al-Qaeda|Jemaah Islamiyah members
+70 Jemaah Islamiyah|Jemaah Islamiyah|Al-Qaeda|Jemaah Islamiyah members|Azahari Husin
+71 Jemaah Islamiyah|Jemaah Islamiyah
+72 Jemaah Islamiyah|Jemaah Islamiyah
+73 Southeast Asia|Indonesia
+74 Southeast Asia|Indonesia
+75 abstract of RDF record for Noordin Top
+76 abstract of RDF record for Noordin Top
+77 Pakistan|Abbottabad|Abbottabad  Pakistan
+78 Pakistan|Abbottabad|Abbottabad  Pakistan
+79 2011-05-02|May 2, 2011
+80 2008 Balad bombing|2008 Karbala bombing|2007 Al Amarah bombings|6 April 2009 Baghdad bombings|24 June 2009 Baghdad bombing|23 April 2009 Iraqi suicide|23 July 2012 Iraq attacks|December 2013 Kirkuk attack|16 August 2012 Iraq attacks|2010 Baghdad church attack|2008 Balad bombing|13 May 2007 Makhmoor bombing|19 March 2013 Iraq attacks|October 2010 Baghdad church attack|21 September 2013 Baghdad attack
+81 2005 Khanaqin bombings|Buratha Mosque bombing|Mustansiriya University bombings|2003 Karbala bombings|2003 Nasiriyah bombing|2004 Forward Operating Base Marez bombing|2004 Irbil bombings|2004 Kufa shelling|2005 Al Hillah bombing|2005 Musayyib bombing|Imam Ali Mosque bombing|Canal Hotel bombing|2007 Amirli bombing|2007 Kirkuk bombings|2005 Balad bombings|2008 Balad bombing|2008 Karbala bombing|21 April 2004 Basra bombings|2003 Jordanian embassy bombing in Baghdad|2007 Tal Afar bombings and massacre|2007 Karbala bombings|2007 Karbala bombings|Imam Abbas Mosque bombing|2007 Yazidi communities bombings|Mahmudiyah killings|2007 Al Amarah bombings|6 April 2009 Baghdad bombings|24 June 2009 Baghdad bombing|23 April 2009 Iraqi suicide|May 2013 Iraq attacks|2004 Iraq churches attacks|16 August 2012 Iraq attacks|2010 Baghdad church attack|October 2010 Baghdad church attack|23 February 2012 Iraq attacks|20 March 2012 Iraq attacks|19 March 2013 Iraq attacks
+82 2005 Khanaqin bombings|2003 Karbala bombings|2003 Nasiriyah bombing|2004 Forward Operating Base Marez bombing|2004 Irbil bombings|2004 Kufa shelling|2005 Al Hillah bombing|2005 Musayyib bombing|Imam Ali Mosque bombing|Canal Hotel bombing|2005 Balad bombings|21 April 2004 Basra bombings|2003 Jordanian embassy bombing in Baghdad|2005 Musayyib bombing|30 September 2004 Baghdad bombing|2004 Iraq churches attacks|17 August 2005 Baghdad bombings|2 March 2004 Iraq Ashura bombings|24 June 2004 Mosul bombings|14 September 2005 Baghdad bombings
+83 2005 Khanaqin bombings|2003 Karbala bombings|2003 Nasiriyah bombing|2004 Forward Operating Base Marez bombing|2004 Irbil bombings|2004 Kufa shelling|2005 Al Hillah bombing|2005 Musayyib bombing|Imam Ali Mosque bombing|Canal Hotel bombing|2005 Balad bombings|21 April 2004 Basra bombings|2003 Jordanian embassy bombing in Baghdad|2005 Musayyib bombing|30 September 2004 Baghdad bombing|2004 Iraq churches attacks|17 August 2005 Baghdad bombings|2 March 2004 Iraq Ashura bombings|24 June 2004 Mosul bombings|14 September 2005 Baghdad bombings
+84 Imam Ali Mosque bombing|Canal Hotel bombing|2003 Karbala bombings|2003 Nasiriyah bombing|2003 Jordanian embassy bombing in Baghdad
+85 2005 Khanaqin bombings|Buratha Mosque bombing|Mustansiriya University bombings|2003 Karbala bombings|2003 Nasiriyah bombing|2004 Forward Operating Base Marez bombing|2004 Irbil bombings|2004 Kufa shelling|2005 Al Hillah bombing|2005 Musayyib bombing|Imam Ali Mosque bombing|Canal Hotel bombing|2007 Amirli bombing|2007 Kirkuk bombings|2005 Balad bombings|2008 Balad bombing|2008 Karbala bombing|21 April 2004 Basra bombings|2003 Jordanian embassy bombing in Baghdad|2007 Tal Afar bombings and massacre|2007 Karbala bombings|2007 Karbala bombings|Imam Abbas Mosque bombing|2007 Yazidi communities bombings|Mahmudiyah killings|2007 Al Amarah bombings|6 April 2009 Baghdad bombings|24 June 2009 Baghdad bombing|23 April 2009 Iraqi suicide|23 July 2012 Iraq attacks|10 May 2010 Iraq attacks|30 September 2004 Baghdad bombing|2004 Iraq churches attacks|July 2013 Iraq attacks|16 August 2012 Iraq attacks|May 2013 Iraq attacks|9 September 2012 Iraq attacks|2010 Baghdad church attack|20 September 2013 Iraq attacks|10 June 2013 Iraq attacks|23 February 2012 Iraq attacks|20 March 2012 Iraq attacks|19 March 2013 Iraq attacks|December 2013 Kirkuk attack|October 2010 Baghdad church attack|21 September 2013 Baghdad attack|2 March 2004 Iraq Ashura bombings|23 November 2006 Sadr City bombings|22 January 2007 Baghdad bombings|Hay al Jihad massacre|19 September 2010 Baghdad bombings|25 January 2010 Baghdad bombings|8 December 2009 Baghdad bombings|4 April 2010 Baghdad bombings|5 July 2011 Taji bombings
+86 2007 Al Amarah bombings|22 January 2007 Baghdad bombings
+87 2007 Al Amarah bombings
+88 2007 Al Amarah bombings|Canal Hotel bombing
+89 2004 Australian Embassy bombing in Jakarta|2003 Marriott Hotel bombing|2009 Jakarta bombings|2002 Bali bombings|Rizal Day bombings|2005 Bali bombings|Christmas Eve 2000 Indonesia bombings|Singapore embassies attack plot|Bali bombings|Zamboanga bombings|2004 Jakarta embassy bombing|2009 Jakarta bombings|2002 Bali nightclub bombings
+90 2007 Bagram Airfield bombing|2007 attack on tourists in Yemen|2004 Khobar massacre|September 11 attacks|11 April 2007 Algiers bombings|Camp Chapman attack|1992 Yemen Hotel Bombings|USS Cole bombing|January 2011 Iraq suicide attacks|December 2004 Karbala and Najaf bombings|1998 United States embassy bombings|30 September 2004 Baghdad bombing
+91 2009 Jakarta bombings|2005 Bali bombings|2005 Tentena market bombings|2002 Bali nightclub bombings||2002 Bali bombings
+92 Rizal Day bombings|2004 SuperFerry 14 bombing|Plaza Miranda bombing|Batasang Pambansa bombing|2010 Philippine Bar exam bombing|2007 Basilan beheading incident|Zamboanga bombing|Zamboanga bombing 2002|2002 Zamboanga bombing|1995 Ipil massacre|Ipil massacre|July 2009 Mindanao bombings|2006 Central Mindanao bombings
+93 2010 Moscow Metro bombings|2010 Kizlyar bombings|2010 Peshawar bombings|April 2010 Kohat bombings|May 2010 Kabul bombing|Nadahan wedding bombing|Changsha IRD Building bombing|September 2010 Lahore bombings|2011 Dera Ghazi Khan bombings|2011 Fuzhou  Jiangxi bombings|2010 Philippine Bar exam bombing|June 2011 Peshawar bombings|2010 Kosovska Mitrovica attack|2010 Badakhshan massacre|October 2010 Abuja attacks|2011 southern Israel cross-border attacks|2011 Khyber Agency bombing|February 2010 Kabul attack|March 2010 Lahore bombings|September 2011 Kabul attack
+94 2009 Jakarta bombings
+95 Local Islamic militants with purported links to Jemaah Islamiyah|Suspected local Islamic militants|Jemaah_Islamiyah|Jemaah Islamiyah|Jemaah Islamiya
+96 2000-12-30|30 December 2000|2004-02-27|27 February 2004|1971-08-21|21 August 1971|2007-11-13|13 November 2007|2010-09-26|26 September 2010
+97 2012-01-10|10 January 2012|2012-01-15|15 January 2012|2012-03-31|31 March 2012|2012-05-21|21 May 2012
+98 2005-10-01|1 October 2005|2005-05-28|28 May 2005|2004-11-13|13 November 2004
+99 Pakistan|Jamrud|Khyber_Agency|Federally_Administered_Tribal_Areas|FATA|Pakistan|Punjab _Pakistan|Rahim_Yar_Khan"|Hat Yai  Yala  Thailand|Sana'a
+100 Ayman al-Zawahiri|Sultan al Haseri|Osama bin Laden|Zawahiri
+101 Main square in central Kuta|warungs along the Jimbaran beach|Stock Exchange|Official residence of Filipino Ambassador to Indonesia|Open air market in central Tentena township|Minibus parked at market in Poso township|Indonesian Police compound's mosque
+102 Main square in central Kuta|warungs along the Jimbaran beach|Open air market in central Tentena township
+103 Unknown  purportedly Jemaah Islamiyah agents|Local Islamic militants with purported links to Jemaah Islamiyah|Suspected local Islamic militants|Jemaah_Islamiyah|Jemaah Islamiyah|Jemaah Islamiah
+104 2000-12-30|30 December 2000|2004-02-27|27 February 2004|1971-08-21|21 August 1971|2007-11-13|13 November 2007|2010-09-26|26 September 2010|September 2010
+105 Quezon_City|Quezon City|General Santos City|Kidapawan City|SOCCSKSARGEN|Cotabato City|Jolo|Tacurong City|Cotabato City
+106 2009-07-17|17 July 2009|2005-10-01|1 October 2005
+107 Indonesia|Jakarta|Bali
+108 SuperFerry
+109 U.S. embassy|Paddy's Pub|Sari Club|Marriott Hotel|JW Marriott Jakarta|JW Marriott Hotel|Australian embassy in Jakarta|Australian embassy|Jimbaran Beach Resort|Kuta|Main square in central Kuta|Jimbaran beach|warungs along the Jimbaran beach|Ritz-Carlton Hotel|Bali
