@@ -50,7 +50,10 @@ public class BuildPseudoDocument {
 			}
 		}
 		br.close();
-		return getKeywords(relSentences, query, 10);
+		String idfdict_path = "../data/dso/idf_dictionary.txt";
+		BuildPseudoDocument_keywordsTFIDF bpd_tfidf = new BuildPseudoDocument_keywordsTFIDF();
+		return bpd_tfidf.getkeywords(relSentences, 10, idfdict_path);
+//		return getKeywords(relSentences, query, 10);
 	}
 
 	private HashSet<String> get_query_word(String query) {

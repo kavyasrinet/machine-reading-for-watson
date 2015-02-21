@@ -37,17 +37,17 @@ import edu.cmu.lti.oaqa.search.RetrievalResult;
 
 public class RetrievalBaselineWorkflow {
 	static boolean done = false;
-	static String accountKey = "TT15WkPtBHfSFTPRJLAMsEgjeaII0J8A7wAEP9J/Hk4";
-	static String QuestionPath = "/Users/patrick/Documents/workspace/machine-reading-for-watson/data/dso/questions/TERRORISM-Questions.txt";
-	static String AnswerPath = "/Users/patrick/Documents/workspace/machine-reading-for-watson/data/dso/gold_standard/TERRORISM-Questions-key.txt";
-	static String corpusPath = "/Users/patrick/Documents/workspace/machine-reading-for-watson/explored-corpus/file";
+	static String accountKey = "8WDj5gva1guOq+un0mhRx75ozDz7Sd4BmJwhgY0T2wY";
+	static String QuestionPath = "../data/dso/questions/TERRORISM-Questions.txt";
+	static String AnswerPath = "../data/dso/gold_standard/TERRORISM-Questions-key.txt";
+	static String corpusPath = "../explored-corpus/file";
 
 	public static void main(String[] args) throws URISyntaxException,
 			IOException, BoilerpipeProcessingException {
 
 		baseline();
-		// iterateExpasion();
-
+		iterateExpasion();
+		
 	}
 
 	public static void iterateExpasion() throws IOException,
