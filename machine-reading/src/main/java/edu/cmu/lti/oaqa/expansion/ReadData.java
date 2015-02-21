@@ -6,9 +6,12 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class ReadData {
-	static String QuestionPath = "../data/dso/questions/TERRORISM-Questions.txt";
-	static String AnswerPath = "../data/dso/gold_standard/TERRORISM-Questions-key.txt";
-	
+	private static int numOfAnswer;
+
+	public ReadData() {
+		numOfAnswer = 0;
+	}
+
 	/*
 	 * Read Answer from file that in range of line [start, end].
 	 * 
@@ -23,62 +26,53 @@ public class ReadData {
 	 * 
 	 * @return Total number of candidate answers.
 	 */
-	public static int readAnswer(String path,
-			HashMap<String, HashMap<String, Integer>> answer, int start, int end)
+	public HashMap<String, HashMap<String, Integer>> readAnswer(String path)
 			throws FileNotFoundException {
-		int count = 0;
-		int read = 0;
+		numOfAnswer = 0;
+
+		HashMap<String, HashMap<String, Integer>> answer = new HashMap<String, HashMap<String, Integer>>();
+
 		Scanner scan = new Scanner(new File(path));
 
 		String line = null;
 		do {
 			line = scan.nextLine();
-			if (read >= start) {
-				HashMap<String, Integer> result = new HashMap<>();
-				String answers[] = line.substring(line.indexOf(' ') + 1).split(
-						"[|]");
-				for (int i = 0; i < answers.length; i++) {
-					// remove the '-' in the date
-					String temp = answers[i].replace("-", " ");
-					if (!result.containsKey(temp)) {
-						result.put(answers[i], 1);
-						count++;
-					}
+
+			HashMap<String, Integer> result = new HashMap<>();
+			String answers[] = line.substring(line.indexOf(' ') + 1).split(
+					"[|]");
+			for (int i = 0; i < answers.length; i++) {
+				// remove the '-' in the date
+				String temp = answers[i].replace("-", " ");
+				if (!result.containsKey(temp)) {
+					result.put(answers[i], 1);
+					numOfAnswer++;
 				}
-				answer.put(line.substring(0, line.indexOf(' ')), result);
 			}
-			read++;
-		} while (scan.hasNext() && read < end);
+			answer.put(line.substring(0, line.indexOf(' ')), result);
+
+		} while (scan.hasNext());
 		scan.close();
 
-		return count;
+		return answer;
 	}
-	
-	public static HashMap<String, String> readQuestions(String path, int start,
-			int end) throws FileNotFoundException {
+
+	public HashMap<String, String> readQuestions(String path)
+			throws FileNotFoundException {
 		HashMap<String, String> result = new HashMap<>();
 		Scanner scan = new Scanner(new File(path));
-		int read = 0;
+
 		String line = null;
 		do {
 			line = scan.nextLine();
-			if (read >= start) {
-				result.put(line.split("\\|")[0], line.split("\\|")[1]);
-			}
-			read++;
-		} while (scan.hasNext() && read < end);
+			result.put(line.split("\\|")[0], line.split("\\|")[1]);
+		} while (scan.hasNext());
 		scan.close();
 
 		return result;
 	}
-	
 
-	public void setQuestionPath(String path) {
-		this.QuestionPath = path;
+	public int getNumberOfAnswer() {
+		return numOfAnswer;
 	}
-	
-	public void setAnswerPath(String path) {
-		this.AnswerPath = path;
-	}
-	
 }

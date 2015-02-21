@@ -11,9 +11,9 @@ import edu.cmu.lti.oaqa.agent.BoilerpipeCachedClient;
 import edu.cmu.lti.oaqa.search.BingSearchAgent;
 import edu.cmu.lti.oaqa.search.RetrievalResult;
 
-public class Expansion {
-	static String accountKey = "wVTtEz9nOezJcYCoTfWSiZ4d3LKRihTXVGyShzIc19E";
-	static String corpusPath = "..../data/dso/explored-corpus/file";
+public class SourceExpansion {
+	private static String accountKey = "8WDj5gva1guOq+un0mhRx75ozDz7Sd4BmJwhgY0T2wY";
+	private static String corpusPath = "../data/dso/explored-corpus/file";
 	
 	/*
 	 * Do source expansion from questions and answers
@@ -31,7 +31,7 @@ public class Expansion {
 	 * @return null
 	 */
 	public void sourceExpansion(HashMap<String, String> questions,
-			HashMap<String, HashMap<String, Integer>> answers, String corpusPath,
+			HashMap<String, HashMap<String, Integer>> answers,
 			boolean combine, int mode) throws URISyntaxException, IOException {
 		FileWriter corpusfwTotal = new FileWriter(corpusPath);
 		FileWriter corpusfwSingle = null;
@@ -93,10 +93,18 @@ public class Expansion {
 	}
 	
 	public void setCorpusPath(String path) {
-		this.corpusPath = path;
+		SourceExpansion.corpusPath = path;
 	}
 	
 	public void setAccountKey(String key) {
-		this.accountKey = key;
+		SourceExpansion.accountKey = key;
+	}
+	
+	public String getCorpusPath() {
+		return SourceExpansion.corpusPath;	
+	}
+	
+	public String getAccountKey(String key) {
+		return SourceExpansion.accountKey;
 	}
 }

@@ -10,18 +10,17 @@ import java.util.Scanner;
 
 import de.l3s.boilerpipe.BoilerpipeProcessingException;
 import edu.cmu.lti.oaqa.corpus.BuildPseudoDocument;
+import edu.cmu.lti.oaqa.expansion.ReadData;
 
 public class Evaluation {
 	static boolean done = false;
 
-	public void setDone(boolean flag) {
-		done = flag;
-	}
-
-	public double computeBinaryAnswerRecall(String path,
+	public static double computeBinaryAnswerRecall(String path,
 			HashMap<String, HashMap<String, Integer>> answers, int total)
 			throws FileNotFoundException {
 		System.out.println("Computing Binary Answer Recall!");
+		done = false;
+
 		int appear = 0;
 		Scanner scan = new Scanner(new File(path));
 		String line = null;
@@ -38,8 +37,9 @@ public class Evaluation {
 		return (double) appear / total;
 	}
 
-	public int getAppearance(HashMap<String, HashMap<String, Integer>> map,
-			String text, int total) {
+	public static int getAppearance(
+			HashMap<String, HashMap<String, Integer>> map, String text,
+			int total) {
 		if (map == null || text == null || text.length() == 0) {
 			return 0;
 		}
@@ -69,68 +69,42 @@ public class Evaluation {
 		return count;
 	}
 
-	public static void baseline() throws IOException, URISyntaxException,
+	public  void baseline(HashMap<String, String> AnswerPath,
+			String CorpusPath) throws IOException, URISyntaxException,
 			BoilerpipeProcessingException {
-		// training 70, dev 10, test 16
-
-		// Step 1: read input file, load training questions
-		HashMap<String, String> questions = readInputData(QuestionPath, 0, 69);
-		HashMap<String, HashMap<String, Integer>> answers = new HashMap<>();
-		int total = 0;
 		double recall = 0.0;
-		// Step 2: evaluate training set, combine questions and answers
-		total = readAnswer(AnswerPath, answers, 0, 69);
-		sourceExpansion(questions, answers, true, 1);
-		recall = computeBinaryAnswerRecall(corpusPath, answers, total);
+
+		// Training Set
+		ReadData rd = new ReadData();
+		HashMap<String, HashMap<String, Integer>> trainingset = rd
+				.readAnswer(AnswerPath.get("Training"));
+
+		recall = computeBinaryAnswerRecall(CorpusPath, trainingset,
+				rd.getNumberOfAnswer());
 		System.out.println("The recall of training set is :" + recall);
 
-		// Step 3: evaluate dev set, only questions
-		// done = false;
-		// total = readAnswer(AnswerPath, answers, 70, 79);
-		// recall = computeBinaryAnswerRecall(corpusPath, answers, total);
-		// System.out.println("The recall of development set is :" + recall);
-		//
-		// // // Step 4: evaluate test set, only questions
-		// done = false;
-		// total = readAnswer(AnswerPath, answers, 80, 96);
-		// recall = computeBinaryAnswerRecall(corpusPath, answers, total);
-		// System.out.println("The recall of test set is :" + recall);
+		// Development Set
+		HashMap<String, HashMap<String, Integer>> devset = rd
+				.readAnswer(AnswerPath.get("Development"));
+		recall = computeBinaryAnswerRecall(CorpusPath, devset,
+				rd.getNumberOfAnswer());
+		System.out.println("The recall of development set is :" + recall);
+		System.out.println("Number of Answers:" + rd.getNumberOfAnswer());
+
+		// Test Set
+		HashMap<String, HashMap<String, Integer>> testset = rd
+				.readAnswer(AnswerPath.get("Test"));
+		recall = computeBinaryAnswerRecall(CorpusPath, testset,
+				rd.getNumberOfAnswer());
+		System.out.println("The recall of training set is :" + recall);
+		System.out.println("Number of Answers:" + rd.getNumberOfAnswer());
+
 	}
 
-	public static void iterateExpasion() throws IOException,
+	public void iterateExpasion(HashMap<String, String> AnswerPath,
+			String CorpusPath) throws IOException,
 			URISyntaxException, BoilerpipeProcessingException {
-		// Step 1: read input file, load training questions
-		HashMap<String, String> questions = readInputData(QuestionPath, 0, 69);
-		HashMap<String, HashMap<String, Integer>> answers = new HashMap<>();
-		int total = readAnswer(AnswerPath, answers, 0, 69);
-
-		// Step 2: evaluate training set, combine questions and answers
-		sourceExpansion(questions, answers, true, 1);
-
-		// get keywords from relevant sentences
-		BuildPseudoDocument bpd = new BuildPseudoDocument();
-		// bpd.setVerbose(true);
-		// RELOAD QUESTIONS HERE FOR DEV & TEST SET
-		HashMap<String, ArrayList<String>> pseduoQueries = bpd.buildPseduoDoc(
-				corpusPath, questions);
-
-		// do another iteration
-		questions.clear();
-		for (String q : pseduoQueries.keySet()) {
-			ArrayList<String> keywords = pseduoQueries.get(q);
-			String query = "";
-			for (String word : keywords) {
-				query += word + " ";
-			}
-			// System.out.println(query);
-			questions.put(q, query);
-		}
-
-		// RELOAD ANSWERS HERE FOR DEV & TEST SET
-		sourceExpansion(questions, answers, false, 2);
-		double recall = computeBinaryAnswerRecall(corpusPath, answers, total);
-
-		System.out.println("The recall of traing set is :" + recall);
+	
 	}
 
 }
