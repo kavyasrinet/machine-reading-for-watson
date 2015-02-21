@@ -31,13 +31,13 @@ import edu.cmu.lti.oaqa.search.BingSearchAgent;
 import edu.cmu.lti.oaqa.search.RetrievalResult;
 
 /**
- * @author Di Wang, Qiang Zhu, Xiaoqiu Huang, Liping Xiong, Yepeng Yin
+ * @author Di Wang, Qiang Zhu, Xiaoqiu Huang, Liping Xiong, Yepeng Yin, Kavay
  * @since 2015-2-7
  */
 
 public class RetrievalBaselineWorkflow {
 	static boolean done = false;
-	static String accountKey = "TT15WkPtBHfSFTPRJLAMsEgjeaII0J8A7wAEP9J/Hk4";
+	static String accountKey = "wVTtEz9nOezJcYCoTfWSiZ4d3LKRihTXVGyShzIc19E";
 	static String QuestionPath = "/Users/patrick/Documents/workspace/machine-reading-for-watson/data/dso/questions/TERRORISM-Questions.txt";
 	static String AnswerPath = "/Users/patrick/Documents/workspace/machine-reading-for-watson/data/dso/gold_standard/TERRORISM-Questions-key.txt";
 	static String corpusPath = "/Users/patrick/Documents/workspace/machine-reading-for-watson/explored-corpus/file";
@@ -102,16 +102,16 @@ public class RetrievalBaselineWorkflow {
 		System.out.println("The recall of training set is :" + recall);
 
 		// Step 3: evaluate dev set, only questions
-		done = false;
-		total = readAnswer(AnswerPath, answers, 70, 79);
-		recall = computeBinaryAnswerRecall(corpusPath, answers, total);
-		System.out.println("The recall of development set is :" + recall);
-
-		// // Step 4: evaluate test set, only questions
-		done = false;
-		total = readAnswer(AnswerPath, answers, 80, 96);
-		recall = computeBinaryAnswerRecall(corpusPath, answers, total);
-		System.out.println("The recall of test set is :" + recall);
+//		done = false;
+//		total = readAnswer(AnswerPath, answers, 70, 79);
+//		recall = computeBinaryAnswerRecall(corpusPath, answers, total);
+//		System.out.println("The recall of development set is :" + recall);
+//
+//		// // Step 4: evaluate test set, only questions
+//		done = false;
+//		total = readAnswer(AnswerPath, answers, 80, 96);
+//		recall = computeBinaryAnswerRecall(corpusPath, answers, total);
+//		System.out.println("The recall of test set is :" + recall);
 	}
 
 	public static double computeBinaryAnswerRecall(String path,
