@@ -18,20 +18,20 @@ public class BuildPseudoDocument {
 	}
 	
 	public HashMap<String, ArrayList<String>> buildPseduoDoc(String corpus_path,
-			HashMap<String, String> queries) throws IOException {
+			HashMap<String, String> queries, int mode) throws IOException {
 		int index = 0;
 		HashMap<String, ArrayList<String>> result = new HashMap<>();
 		for (String query : queries.values()) {
 			if(VERBOSE)
 				System.out.println("Processing "+index);
-			ArrayList<String> keywords = build(corpus_path + index, query);
+			ArrayList<String> keywords = build(corpus_path + index, query, mode);
 			result.put(query, keywords);
 			index++;
 		}
 		return result;
 	}
 
-	public ArrayList<String> build(String corpus_address, String query) throws IOException {
+	public ArrayList<String> build(String corpus_address, String query, int mode) throws IOException {
 		if (query.endsWith("?"))
 			query = query.substring(0, query.length() - 1);
 		ArrayList<String> relSentences = new ArrayList<>();
@@ -52,8 +52,12 @@ public class BuildPseudoDocument {
 		br.close();
 		String idfdict_path = "../data/dso/idf_dictionary.txt";
 		BuildPseudoDocument_keywordsTFIDF bpd_tfidf = new BuildPseudoDocument_keywordsTFIDF();
-		return bpd_tfidf.getkeywords(relSentences, 10, idfdict_path);
-//		return getKeywords(relSentences, query, 10);
+		if(mode == 0)
+			return getKeywords(relSentences, query, 10);
+		else if(mode == 1)
+			return bpd_tfidf.getkeywords(relSentences, 10, idfdict_path);
+		else
+			return BuildPseudoDocument_keywordsNER.getKeywords(relSentences, 10);	
 	}
 
 	private HashSet<String> get_query_word(String query) {

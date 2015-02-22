@@ -7,14 +7,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import de.l3s.boilerpipe.BoilerpipeProcessingException;
 import edu.cmu.lti.oaqa.agent.BoilerpipeCachedClient;
+import edu.cmu.lti.oaqa.corpus.BuildPseudoDocument;
 import edu.cmu.lti.oaqa.search.BingSearchAgent;
 import edu.cmu.lti.oaqa.search.RetrievalResult;
 
 public class SourceExpansion {
 	private static String accountKey = "8WDj5gva1guOq+un0mhRx75ozDz7Sd4BmJwhgY0T2wY";
 	private static String corpusPath = "../data/dso/explored-corpus/file";
-	
+
 	/*
 	 * Do source expansion from questions and answers
 	 * 
@@ -91,19 +93,53 @@ public class SourceExpansion {
 		}
 		corpusfwTotal.close();
 	}
-	
+
+	public void iterateExpasion(HashMap<String, String> questions,
+			HashMap<String, HashMap<String, Integer>> answers, int mode) 
+			throws IOException, URISyntaxException, BoilerpipeProcessingException {
+		// Step 2: evaluate training set, combine questions and answers
+		this.sourceExpansion(questions, answers, true,1);
+
+		// get keywords from relevant sentences
+		BuildPseudoDocument bpd = new BuildPseudoDocument();
+		// bpd.setVerbose(true);
+		
+		/* different keyword expansion methods
+		 * 			   0 - overlapping 
+		 * 			   1 - tf-idf
+		 * 			   2 - NER
+		 */
+		HashMap<String, ArrayList<String>> pseduoQueries = bpd.buildPseduoDoc(
+				corpusPath, questions, 2);
+
+		// do another iteration
+		questions.clear();
+		for (String q : pseduoQueries.keySet()) {
+			ArrayList<String> keywords = pseduoQueries.get(q);
+			String query = "";
+			for (String word : keywords) {
+				query += word + " ";
+			}
+			System.out.println(query);
+			questions.put(q, query);
+		}
+
+		// RELOAD ANSWERS HERE FOR DEV & TEST SET
+		this.sourceExpansion(questions, answers, false,2);
+	}
+
 	public void setCorpusPath(String path) {
 		SourceExpansion.corpusPath = path;
 	}
-	
+
 	public void setAccountKey(String key) {
 		SourceExpansion.accountKey = key;
 	}
-	
+
 	public String getCorpusPath() {
 		return SourceExpansion.corpusPath;	
 	}
-	
+
 	public String getAccountKey(String key) {
 		return SourceExpansion.accountKey;
 	}
