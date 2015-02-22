@@ -14,28 +14,11 @@ import edu.cmu.lti.oaqa.expansion.SourceExpansion;
  */
 
 public class RetrievalBaselineWorkflow {
-<<<<<<< HEAD
 	static boolean done = false;
 	static String accountKey = "8WDj5gva1guOq+un0mhRx75ozDz7Sd4BmJwhgY0T2wY";
 	static String QuestionPath = "../data/dso/questions/TERRORISM-Questions.txt";
 	static String AnswerPath = "../data/dso/gold_standard/TERRORISM-Questions-key.txt";
 	static String corpusPath = "../explored-corpus/file";
-
-	public static void main(String[] args) throws URISyntaxException,
-			IOException, BoilerpipeProcessingException {
-
-		baseline();
-		iterateExpasion();
-		
-	}
-
-	public static void iterateExpasion() throws IOException,
-			URISyntaxException, BoilerpipeProcessingException {
-		// Step 1: read input file, load training questions
-		HashMap<String, String> questions = readInputData(QuestionPath, 0, 69);
-		HashMap<String, HashMap<String, Integer>> answers = new HashMap<>();
-		int total = readAnswer(AnswerPath, answers, 0, 69);
-=======
 	
 	public static void main(String[] args) throws URISyntaxException,
 			IOException, BoilerpipeProcessingException {
@@ -46,11 +29,13 @@ public class RetrievalBaselineWorkflow {
 		ReadData rd = new ReadData();
 		HashMap<String, String> questions = rd.readQuestions(QuestionPath.get("Training"));
 		HashMap<String, HashMap<String, Integer>> answers = rd.readAnswer(AnswerPath.get("Training"));
->>>>>>> origin/master
 	
 		// source expansion
 		SourceExpansion se = new SourceExpansion();
-		se.sourceExpansion(questions, answers, true, 1);
+		//se.sourceExpansion(questions, answers, true, 1);
+		
+		// iterate expansion
+		se.iterateExpasion(questions, answers, 2);
 		
 		// evaluation
 		Evaluation eva = new Evaluation();
