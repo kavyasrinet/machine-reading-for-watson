@@ -3,6 +3,8 @@ package edu.cmu.lti.oaqa.workflow;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.HashSet;
+
 import de.l3s.boilerpipe.BoilerpipeProcessingException;
 import edu.cmu.lti.oapa.evaluation.Evaluation;
 import edu.cmu.lti.oaqa.expansion.ReadData;
@@ -14,32 +16,26 @@ import edu.cmu.lti.oaqa.expansion.SourceExpansion;
  */
 
 public class RetrievalBaselineWorkflow {
-	static boolean done = false;
-	static String accountKey = "8WDj5gva1guOq+un0mhRx75ozDz7Sd4BmJwhgY0T2wY";
-	static String QuestionPath = "../data/dso/questions/TERRORISM-Questions.txt";
-	static String AnswerPath = "../data/dso/gold_standard/TERRORISM-Questions-key.txt";
-	static String corpusPath = "../explored-corpus/file";
-	
 	public static void main(String[] args) throws URISyntaxException,
-			IOException, BoilerpipeProcessingException {
+			IOException, BoilerpipeProcessingException, ClassCastException, ClassNotFoundException {
 		HashMap<String,String> QuestionPath = new HashMap<>();
 		HashMap<String, String> AnswerPath = new HashMap<>();
 		makePath(QuestionPath, AnswerPath);
 		// step 1: read data
 		ReadData rd = new ReadData();
 		HashMap<String, String> questions = rd.readQuestions(QuestionPath.get("Training"));
-		HashMap<String, HashMap<String, Integer>> answers = rd.readAnswer(AnswerPath.get("Training"));
+		HashMap<String, HashSet<String>> answers = rd.readAnswer(AnswerPath.get("Training"));
 	
 		// source expansion
 		SourceExpansion se = new SourceExpansion();
 		//se.sourceExpansion(questions, answers, true, 1);
 		
 		// iterate expansion
-		se.iterateExpasion(questions, answers, 2);
+		se.iterateExpasion(questions, answers,2);
 		
 		// evaluation
 		Evaluation eva = new Evaluation();
-		eva.baseline(AnswerPath, se.getCorpusPath());
+		eva.BinaryAnswerRecall(AnswerPath, se.getCorpusPath());
 	}	
 	
 	public static void makePath(HashMap<String,String> QuestionPath,HashMap<String, String> AnswerPath ) {

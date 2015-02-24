@@ -36,7 +36,6 @@ public class BuildPseudoDocument_keywordsNER {
     	   and produce an inline XML output format.
 		 */
 
-
 		for (String str : sentences) {
 			str = str.replaceAll("\\W+", " ");
 			String NERStr = classifier.classifyToString(str);
@@ -83,6 +82,7 @@ public class BuildPseudoDocument_keywordsNER {
 	public static void main(String[] args) throws ClassCastException, ClassNotFoundException, IOException
 	{
 		ArrayList<String> sentences = new ArrayList<String>();
-		getKeywords(sentences, 10);
+		sentences.add("Where was the meeting between Amrozi Nurhasyim and Abu Bakar Bashir?");
+		getKeywords(sentences, 2);
 	}
 }

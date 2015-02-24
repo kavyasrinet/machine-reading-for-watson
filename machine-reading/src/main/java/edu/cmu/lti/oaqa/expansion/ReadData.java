@@ -3,15 +3,15 @@ package edu.cmu.lti.oaqa.expansion;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 
+/**
+ * This class is used to read data from local file.
+ * 
+ * @author Yepeng Yin
+ */
 public class ReadData {
-	private static int numOfAnswer;
-
-	public ReadData() {
-		numOfAnswer = 0;
-	}
-
 	/*
 	 * Read Answer from file that in range of line [start, end].
 	 * 
@@ -20,17 +20,12 @@ public class ReadData {
 	 * @param answer Read answer. The key of outer hashmap is qid. The key of
 	 * inner hashmap is candidate answer and the value is appearance time.
 	 * 
-	 * @param start Start line number.
-	 * 
-	 * @param end End line number.
-	 * 
-	 * @return Total number of candidate answers.
+	 * @return Hashmap of candidate answers.
 	 */
-	public HashMap<String, HashMap<String, Integer>> readAnswer(String path)
+	public HashMap<String, HashSet<String>> readAnswer(String path)
 			throws FileNotFoundException {
-		numOfAnswer = 0;
-
-		HashMap<String, HashMap<String, Integer>> answer = new HashMap<String, HashMap<String, Integer>>();
+	
+		HashMap<String, HashSet<String>> answer = new HashMap<String, HashSet<String>>();
 
 		Scanner scan = new Scanner(new File(path));
 
@@ -38,16 +33,13 @@ public class ReadData {
 		do {
 			line = scan.nextLine();
 
-			HashMap<String, Integer> result = new HashMap<>();
+			HashSet<String> result = new HashSet<>();
 			String answers[] = line.substring(line.indexOf(' ') + 1).split(
 					"[|]");
 			for (int i = 0; i < answers.length; i++) {
 				// remove the '-' in the date
 				String temp = answers[i].replace("-", " ");
-				if (!result.containsKey(temp)) {
-					result.put(answers[i], 1);
-					numOfAnswer++;
-				}
+				result.add(temp);
 			}
 			answer.put(line.substring(0, line.indexOf(' ')), result);
 
@@ -70,9 +62,5 @@ public class ReadData {
 		scan.close();
 
 		return result;
-	}
-
-	public int getNumberOfAnswer() {
-		return numOfAnswer;
 	}
 }

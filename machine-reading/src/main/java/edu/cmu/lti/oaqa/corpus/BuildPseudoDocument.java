@@ -18,7 +18,7 @@ public class BuildPseudoDocument {
 	}
 	
 	public HashMap<String, ArrayList<String>> buildPseduoDoc(String corpus_path,
-			HashMap<String, String> queries, int mode) throws IOException {
+			HashMap<String, String> queries, int mode) throws IOException, ClassCastException, ClassNotFoundException {
 		int index = 0;
 		HashMap<String, ArrayList<String>> result = new HashMap<>();
 		for (String query : queries.values()) {
@@ -31,7 +31,7 @@ public class BuildPseudoDocument {
 		return result;
 	}
 
-	public ArrayList<String> build(String corpus_address, String query, int mode) throws IOException {
+	public ArrayList<String> build(String corpus_address, String query, int mode) throws IOException, ClassCastException, ClassNotFoundException {
 		if (query.endsWith("?"))
 			query = query.substring(0, query.length() - 1);
 		ArrayList<String> relSentences = new ArrayList<>();

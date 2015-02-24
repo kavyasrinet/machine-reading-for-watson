@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 
 import de.l3s.boilerpipe.BoilerpipeProcessingException;
@@ -15,19 +16,26 @@ import edu.cmu.lti.oaqa.expansion.ReadData;
 public class Evaluation {
 	static boolean done = false;
 
+	
 	public static double computeBinaryAnswerRecall(String path,
-			HashMap<String, HashMap<String, Integer>> answers, int total)
+			HashMap<String, HashSet<String>> answers)
 			throws FileNotFoundException {
-		System.out.println("Computing Binary Answer Recall!");
 		done = false;
-
+		int total = 0;
 		int appear = 0;
+		
+		HashMap<String, Boolean> found = new HashMap<>();
+		for(String qid: answers.keySet()) {
+			found.put(qid, false);
+			total++;
+		}
+		
 		Scanner scan = new Scanner(new File(path));
 		String line = null;
 
 		do {
 			line = scan.nextLine();
-			appear += getAppearance(answers, line, total);
+			appear += getAppearance(answers, line, found, total);
 			if (done)
 				break;
 		} while (scan.hasNext());
@@ -38,72 +46,63 @@ public class Evaluation {
 	}
 
 	public static int getAppearance(
-			HashMap<String, HashMap<String, Integer>> map, String text,
-			int total) {
-		if (map == null || text == null || text.length() == 0) {
+			HashMap<String, HashSet<String>> answers, String text, HashMap<String, Boolean> found, int total) {
+		if (answers == null || text == null || text.length() == 0) {
 			return 0;
 		}
+		
 		int count = 0;
-		int found = 0;
-		for (String qid : map.keySet()) {
-			HashMap<String, Integer> answers = map.get(qid);
-			for (String answer : answers.keySet()) {
-				if (answers.get(answer) > 0) {
-					if (text.contains(answer)) {
-						// System.out.println(answer);
-						answers.put(answer, 0);
-						found++;
+		int alreadyFound = 0;
+		
+		for (String qid : found.keySet()) {
+			if(found.get(qid) == false) {
+				HashSet<String> candidates = answers.get(qid);
+				for(String candidate: candidates) {
+					if (text.contains(candidate)){
+						found.put(qid, true);
 						count++;
+						alreadyFound++;
+						break;
 					}
-				} else {
-					found++;
 				}
+			}else{
+				alreadyFound++;
 			}
-			map.put(qid, answers);
 		}
-
-		if (found == total) {
+		
+		if(alreadyFound == total) {
 			done = true;
 		}
-
+		
 		return count;
 	}
+	
 
-	public  void baseline(HashMap<String, String> AnswerPath,
+	public  void BinaryAnswerRecall(HashMap<String, String> AnswerPath,
 			String CorpusPath) throws IOException, URISyntaxException,
 			BoilerpipeProcessingException {
+		System.out.println("Computing binary answer recall...");
 		double recall = 0.0;
 
 		// Training Set
 		ReadData rd = new ReadData();
-		HashMap<String, HashMap<String, Integer>> trainingset = rd
+		HashMap<String, HashSet<String>> trainingset = rd
 				.readAnswer(AnswerPath.get("Training"));
 
-		recall = computeBinaryAnswerRecall(CorpusPath, trainingset,
-				rd.getNumberOfAnswer());
+		recall = computeBinaryAnswerRecall(CorpusPath, trainingset);
 		System.out.println("The recall of training set is :" + recall);
-
+		
 		// Development Set
-		HashMap<String, HashMap<String, Integer>> devset = rd
+		HashMap<String, HashSet<String>> devset = rd
 				.readAnswer(AnswerPath.get("Development"));
-		recall = computeBinaryAnswerRecall(CorpusPath, devset,
-				rd.getNumberOfAnswer());
+		recall = computeBinaryAnswerRecall(CorpusPath, devset);
 		System.out.println("The recall of development set is :" + recall);
-		System.out.println("Number of Answers:" + rd.getNumberOfAnswer());
-
+		
 		// Test Set
-		HashMap<String, HashMap<String, Integer>> testset = rd
+		HashMap<String, HashSet<String>> testset = rd
 				.readAnswer(AnswerPath.get("Test"));
-		recall = computeBinaryAnswerRecall(CorpusPath, testset,
-				rd.getNumberOfAnswer());
-		System.out.println("The recall of training set is :" + recall);
-		System.out.println("Number of Answers:" + rd.getNumberOfAnswer());
-
-	}
-
-	public void iterateExpasion(HashMap<String, String> AnswerPath,
-			String CorpusPath) throws IOException,
-			URISyntaxException, BoilerpipeProcessingException {
+		recall = computeBinaryAnswerRecall(CorpusPath, testset);
+		System.out.println("The recall of test set is :" + recall);
 	
 	}
 
