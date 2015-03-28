@@ -39,7 +39,7 @@ public class QAApiQuerier extends AbstractCachedFetcher<JSONObject> {
 
   static final HttpHost QAPI_TARGET = new HttpHost("watson-wdc01.ihost.com", 443, "https");
 
-  static String defaultCredentialPropPath = "src/main/config/credential.properties";
+  static String defaultCredentialPropPath = "src/main/config/credentials.properties";
 
   static boolean renewCache = true;
 
@@ -80,7 +80,7 @@ public class QAApiQuerier extends AbstractCachedFetcher<JSONObject> {
 
   public static void main(String[] args) throws IOException {
     QAApiQuerier querier = new QAApiQuerier();
-    JSONObject jsonOutput = querier.fetch(
+    JSONObject jsonOutput = querier.fetch(	
             "Where is Carnegie Mellon University?", renewCache);
     System.out.println(jsonOutput);
   }
