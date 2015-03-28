@@ -18,9 +18,9 @@ public class BuildPseudoDocument {
 	}
 	
 	public HashMap<String, ArrayList<String>> buildPseduoDoc(String corpus_path,
-//			HashMap<String, String> queries, int mode) throws IOException, ClassCastException, ClassNotFoundException {
+			HashMap<String, String> queries, int mode) throws IOException, ClassCastException, ClassNotFoundException {
 
-			HashMap<String, String> queries) throws IOException {
+//			HashMap<String, String> queries) throws IOException {
 //>>>>>>> Stashed changes
 		int index = 0;
 		HashMap<String, ArrayList<String>> result = new HashMap<>();
