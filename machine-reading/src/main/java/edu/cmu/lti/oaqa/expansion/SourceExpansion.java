@@ -1,8 +1,11 @@
 package edu.cmu.lti.oaqa.expansion;
 
+import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,7 +20,7 @@ import edu.cmu.lti.oaqa.search.RetrievalResult;
 /**
  * This class is used to do source expansion.
  * 
- * @author Yepeng Yin, Qiang Zhu.
+ * @author Yepeng Yin, Qiang Zhu, Kavya Srinet.
  */
 
 public class SourceExpansion {
@@ -59,7 +62,7 @@ public class SourceExpansion {
 		BingSearchAgent bsa = new BingSearchAgent();
 		bsa.initialize(accountKey);
 		// set retrieve document size
-		bsa.setResultSetSize(10);
+		bsa.setResultSetSize(5);
 
 		ArrayList<String> keyTerms = new ArrayList<>();
 		ArrayList<String> keyPhrases = new ArrayList<>();
@@ -81,6 +84,7 @@ public class SourceExpansion {
 				RetrievalResult rr = result.get(i);
 				// get web page content
 				if (getContent) {
+				  
 					content = client.fetch(rr.getUrl());
 				} else {
 					content = "";
@@ -100,11 +104,17 @@ public class SourceExpansion {
 					for (int i = 0; i < result.size(); i++) {
 						RetrievalResult rr = result.get(i);
 						if (getContent) {
+				//		  content = getContent(new URL(rr.getUrl()));
 							content = client.fetch(rr.getUrl());
 						} else {
 							content = "";
 						}
+				//		System.out.println(content);
 						// write corpus to file
+						String x  = rr.getText();
+					//	System.out.println("******************");
+						//System.out.println("\n"+x);
+						String title  = x.substring(0, x.indexOf("..."));
 						corpusfwTotal.write(rr.getText() + content + "\n");
 						corpusfwSingle.write(rr.getText() + content + "\n");
 
@@ -157,6 +167,19 @@ public class SourceExpansion {
 
 	public void setCorpusPath(String path) {
 		SourceExpansion.corpusPath = path;
+	}
+	
+	public static String getContent(URL url) throws IOException{
+	   BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+	   ArrayList<String> lines = new ArrayList<String>();
+	   String line;
+	    while ((line = in.readLine()) != null) {
+	      lines.add(line);
+	      System.out.println(line);
+	    }
+	    in.close();
+	    return lines.toString();
+
 	}
 
 	public void setAccountKey(String key) {
