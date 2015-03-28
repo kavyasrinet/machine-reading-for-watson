@@ -26,20 +26,21 @@ public class BuildPseudoDocument_keywordsTFIDF {
 	 * return: key-queryid,value-keywords
 	 * @throws IOException 
 	 */
-//	public static void main(String[] args) throws IOException{
-//		String QuestionPath = "../data/dso/questions/TERRORISM-Questions.txt";
-//		String corpus_path = "../explored-corpus/file";
+	public static void main(String[] args) throws IOException{
+		String QuestionPath = "../data/dso/questions/TERRORISM-Questions.txt";
+		String corpus_path = "../explored-corpus/file";
+		HashMap<String, String> questions = rd.readQuestions(QuestionPath.get("Training"));
 //		HashMap<String, String> questions = RetrievalBaselineWorkflow.readInputData(QuestionPath, 0, 69);
-//		BuildPseudoDocument bpd = new BuildPseudoDocument();
-//		HashMap<String,ArrayList<String>> keywords = bpd.buildPseduoDoc(corpus_path, questions);
-//		for(Entry entry : keywords.entrySet()){
-//			System.out.println(entry.getKey());
-//			ArrayList<String> a = (ArrayList<String>) entry.getValue();
-//			for(String str : a){
-//				System.out.println(str);
-//			}
-//		}
-//	}
+		BuildPseudoDocument bpd = new BuildPseudoDocument();
+		HashMap<String,ArrayList<String>> keywords = bpd.buildPseduoDoc(corpus_path, questions);
+		for(Entry entry : keywords.entrySet()){
+			System.out.println(entry.getKey());
+			ArrayList<String> a = (ArrayList<String>) entry.getValue();
+			for(String str : a){
+				System.out.println(str);
+			}
+		}
+	}
 	
 	public HashMap<String, ArrayList<String>> buildPseudoDocument(String corpus_path,HashMap<String,String> queries,String idfdict_path,int keywords_num) throws IOException{	
 		HashMap<String, ArrayList<String>> query_keywords = new HashMap<String, ArrayList<String>>();

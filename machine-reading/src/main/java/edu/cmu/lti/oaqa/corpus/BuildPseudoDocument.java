@@ -18,28 +18,36 @@ public class BuildPseudoDocument {
 	}
 	
 	public HashMap<String, ArrayList<String>> buildPseduoDoc(String corpus_path,
-			HashMap<String, String> queries, int mode) throws IOException, ClassCastException, ClassNotFoundException {
+//			HashMap<String, String> queries, int mode) throws IOException, ClassCastException, ClassNotFoundException {
+
+			HashMap<String, String> queries) throws IOException {
+//>>>>>>> Stashed changes
 		int index = 0;
 		HashMap<String, ArrayList<String>> result = new HashMap<>();
 		for (String query : queries.values()) {
 			if(VERBOSE)
 				System.out.println("Processing "+index);
-			ArrayList<String> keywords = build(corpus_path + index, query, mode);
+			ArrayList<String> keywords = build(corpus_path + index, query);
 			result.put(query, keywords);
 			index++;
 		}
 		return result;
 	}
 
-	public ArrayList<String> build(String corpus_address, String query, int mode) throws IOException, ClassCastException, ClassNotFoundException {
-		if (query.endsWith("?"))
+//<<<<<<< Updated upstream
+//	public ArrayList<String> build(String corpus_address, String query, int mode) throws IOException, ClassCastException, ClassNotFoundException {
+//		if (query.endsWith("?"))
+//=======
+	public ArrayList<String> build(String corpus_address, String query) throws IOException {
+		if (query.endsWith("\\?"))
+//>>>>>>> Stashed changes
 			query = query.substring(0, query.length() - 1);
 		ArrayList<String> relSentences = new ArrayList<>();
 		BufferedReader br = new BufferedReader(new FileReader(corpus_address));
 		String[] query_word = query.split(" ");
 		String line;
 		while ((line = br.readLine()) != null) {
-			String[] sentences = line.split("[.|?]");
+			String[] sentences = line.split("[.|\\?]");
 			for (String sentence : sentences) {
 				for (String word : query_word) {
 					if (sentence.contains(word)) {
@@ -52,12 +60,8 @@ public class BuildPseudoDocument {
 		br.close();
 		String idfdict_path = "../data/dso/idf_dictionary.txt";
 		BuildPseudoDocument_keywordsTFIDF bpd_tfidf = new BuildPseudoDocument_keywordsTFIDF();
-		if(mode == 0)
-			return getKeywords(relSentences, query, 10);
-		else if(mode == 1)
-			return bpd_tfidf.getkeywords(relSentences, 10, idfdict_path);
-		else
-			return BuildPseudoDocument_keywordsNER.getKeywords(relSentences, 10);	
+		return bpd_tfidf.getkeywords(relSentences, 10, idfdict_path);
+//		return getKeywords(relSentences, query, 10);
 	}
 
 	private HashSet<String> get_query_word(String query) {
