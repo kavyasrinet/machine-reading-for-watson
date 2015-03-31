@@ -118,6 +118,7 @@ public class BingSearchCachedClient extends AbstractCachedFetcher<ArrayList<Resu
   }
 
   @Override
+public
   ArrayList<Result> fetchOnline(String key) {
     return null;
   }

@@ -30,10 +30,10 @@ public class RetrievalBaselineWorkflow_pruned {
 	
 		// source expansion
 		SourceExpansion se = new SourceExpansion();
-	se.sourceExpansion(questions, answers, true, 1);
+		se.sourceExpansion(questions, answers, true, 1);
 		
 		// iterate expansion
-		se.iterateExpasion(questions, answers,2);
+		//se.iterateExpasion(questions, answers,2);
 		
 		// evaluation
 		

@@ -19,6 +19,7 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -55,10 +56,12 @@ public class QAApiQuerier extends AbstractCachedFetcher<JSONObject> {
 
   public QAApiQuerier(String credentialPropPath) throws IOException {
     super(new MongoJsonCache(QAApiQuerier.class));
-   
-    String username = "cmu_administrator";
-    String password = "H5W2lhXv";
-
+    
+    Properties prop = new Properties();
+    prop.load(new FileInputStream(credentialPropPath));
+    String username = prop.getProperty("user").trim();
+    String password = prop.getProperty("password").trim();
+    
     CredentialsProvider credsProvider = new BasicCredentialsProvider();
 
     credsProvider.setCredentials(
@@ -81,7 +84,13 @@ public class QAApiQuerier extends AbstractCachedFetcher<JSONObject> {
   public static void main(String[] args) throws IOException {
     QAApiQuerier querier = new QAApiQuerier();
     JSONObject jsonOutput = querier.fetch(
-            "Where is Carnegie Mellon University?", renewCache);
+            "In what year did the Marriott Hotel bombing occur?", renewCache);
+    jsonOutput = jsonOutput.getJSONObject("question");
+    JSONArray ja = jsonOutput.getJSONArray("evidencelist");
+    for (int i = 0; i < ja.length(); i++) {
+    	JSONObject temp = (JSONObject) ja.get(i);
+    	System.out.println(temp.get("text"));
+	}
     System.out.println(jsonOutput);
   }
 
@@ -123,7 +132,6 @@ public class QAApiQuerier extends AbstractCachedFetcher<JSONObject> {
     return questionObject.toString();
   }
 
-  @Override
   public JSONObject fetchOnline(String question) {
     JSONObject fetchedJson = null;
     try {

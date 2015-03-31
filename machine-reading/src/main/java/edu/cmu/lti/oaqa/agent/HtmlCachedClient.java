@@ -27,7 +27,7 @@ import java.io.IOException;
  */
 public class HtmlCachedClient extends AbstractCachedFetcher<String> {
 
-  String fetchOnline(String url) {
+  public String fetchOnline(String url) {
     String html = "";
     try {
       html = Jsoup.connect(url).timeout(10000).get().html();

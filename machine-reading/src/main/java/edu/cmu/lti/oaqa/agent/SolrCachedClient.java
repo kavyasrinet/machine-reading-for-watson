@@ -44,6 +44,7 @@ public class SolrCachedClient extends AbstractCachedFetcher<QueryResponse> {
 
 
   @Override
+public
   QueryResponse fetchOnline(String query) {
     HashMap<String, String> hshParams = new HashMap<String, String>();
     hshParams.put("q", query);

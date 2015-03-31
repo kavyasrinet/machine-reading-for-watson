@@ -35,6 +35,7 @@ public class BoilerpipeCachedClient extends AbstractCachedFetcher<String> {
   }
 
   @Override
+public
   String fetchOnline(String url)  {
     System.out.println("Fetching URL:" + url);
     String html = htmlClient.fetch(url);

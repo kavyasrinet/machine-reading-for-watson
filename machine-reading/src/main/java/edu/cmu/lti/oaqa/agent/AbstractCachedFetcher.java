@@ -2,6 +2,7 @@ package edu.cmu.lti.oaqa.agent;
 
 import edu.cmu.lti.oaqa.cache.KeyObjectCache;
 import edu.cmu.lti.oaqa.cache.MongoPojoCache;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,74 +21,94 @@ import java.util.concurrent.Future;
  */
 public abstract class AbstractCachedFetcher<V> {
 
-  private static final int THREADS = 8;
+	private static final int THREADS = 8;
 
-  protected Logger log = LoggerFactory.getLogger(this.getClass());
+	protected Logger log = LoggerFactory.getLogger(this.getClass());
 
-  protected KeyObjectCache<V> cacheServer;
+	protected KeyObjectCache<V> cacheServer;
 
-  public AbstractCachedFetcher() {
-    cacheServer = new MongoPojoCache<V>(this);
-  }
+	public AbstractCachedFetcher() {
+		cacheServer = new MongoPojoCache<V>(this);
+	}
 
-  public V fetch(String key) {
-    V val = null;
-    try {
-      val = cacheServer.get(key);
+	public AbstractCachedFetcher(KeyObjectCache<V> cacheServer) {
+		this.cacheServer = cacheServer;
+	}
 
-      boolean isEmpty = false;
-      if(val instanceof  String){
-        isEmpty = ((String) val).isEmpty();
-      }
+	public V fetch(String key) {
+		V val = null;
+		try {
+			val = cacheServer.get(key);
 
-      if (val == null) {
-        val = fetchOnline(key);
-        cacheServer.put(key, val);
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return val;
-  }
+			boolean isEmpty = false;
+			if (val instanceof String) {
+				isEmpty = ((String) val).isEmpty();
+			}
 
-  abstract V fetchOnline(String key);
+			if (val == null) {
+				val = fetchOnline(key);
+				cacheServer.put(key, val);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return val;
+	}
 
-  public LinkedHashMap<String, V> batchFetch(List<String> keys) {
-    ExecutorService executor = Executors.newFixedThreadPool(THREADS);
-    ArrayList<Future<V>> list = new ArrayList<Future<V>>();
-    for (String key : keys) {
-      Callable<V> worker = new FetcherCallable(key);
-      Future<V> submit = executor.submit(worker);
-      list.add(submit);
-    }
-    LinkedHashMap<String, V> results = new LinkedHashMap<String, V>();
-    Iterator<Future<V>> futureIter = list.iterator();
-    Iterator<String> keyIter = keys.iterator();
-    while (futureIter.hasNext() && keyIter.hasNext()) {
-      try {
-        Future<V> future = futureIter.next();
-        V val = future.get();
-        results.put(keyIter.next(), val);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
-    executor.shutdown();
-    return results;
-  }
+	public V fetch(String key, boolean renewCache) {
+		V val = null;
+		try {
+			if (!renewCache) {
+				val = cacheServer.get(key);
+			}
+			if (val == null) {
+				val = fetchOnline(key);
+				cacheServer.put(key, val);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return val;
+	}
 
-  public class FetcherCallable implements Callable<V> {
-    String key;
+	public abstract V fetchOnline(String key);
 
-    public FetcherCallable(String key) {
-      super();
-      this.key = key;
-    }
+	public LinkedHashMap<String, V> batchFetch(List<String> keys) {
+		ExecutorService executor = Executors.newFixedThreadPool(THREADS);
+		ArrayList<Future<V>> list = new ArrayList<Future<V>>();
+		for (String key : keys) {
+			Callable<V> worker = new FetcherCallable(key);
+			Future<V> submit = executor.submit(worker);
+			list.add(submit);
+		}
+		LinkedHashMap<String, V> results = new LinkedHashMap<String, V>();
+		Iterator<Future<V>> futureIter = list.iterator();
+		Iterator<String> keyIter = keys.iterator();
+		while (futureIter.hasNext() && keyIter.hasNext()) {
+			try {
+				Future<V> future = futureIter.next();
+				V val = future.get();
+				results.put(keyIter.next(), val);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		executor.shutdown();
+		return results;
+	}
 
-    @Override
-    public V call() throws Exception {
-      return fetch(key);
-    }
-  }
+	public class FetcherCallable implements Callable<V> {
+		String key;
+
+		public FetcherCallable(String key) {
+			super();
+			this.key = key;
+		}
+
+		@Override
+		public V call() throws Exception {
+			return fetch(key);
+		}
+	}
 
 }

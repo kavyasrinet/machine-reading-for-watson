@@ -24,9 +24,13 @@ import edu.cmu.lti.oaqa.search.RetrievalResult;
  */
 
 public class SourceExpansion {
-	private static String accountKey = "8WDj5gva1guOq+un0mhRx75ozDz7Sd4BmJwhgY0T2wY";
-	private static String corpusPath = "../data/dso/explored-corpus/file";
-
+	private  String accountKey = null;
+	private  String corpusPath = null;
+	
+	public SourceExpansion(String accountKey, String corpusPath) {
+		this.accountKey = accountKey;
+		this.corpusPath = corpusPath;
+	}
 	/*
 	 * Do source expansion from questions and answers
 	 * 
@@ -71,6 +75,7 @@ public class SourceExpansion {
 		int index = 0;
 		String content = null;
 		BoilerpipeCachedClient client = new BoilerpipeCachedClient();
+		
 		for (String qid : questions.keySet()) {
 			System.out.println("Processing " + index);
 			List<RetrievalResult> result = bsa.retrieveDocuments(qid,
@@ -89,10 +94,20 @@ public class SourceExpansion {
 				} else {
 					content = "";
 				}
+				
 				// write corpus to file
-				corpusfwTotal.write(rr.getText() + content + "\n");
+				String temp = rr.getText();
+				
+				corpusfwTotal.write("<section>\n");
+				if(!temp.contains("...")){
+					corpusfwTotal.write("<h1>"+rr.getText().split("\n")[0]);
+				}else{
+					corpusfwTotal.write("<h1>"+ temp.substring(0, temp.indexOf("...")));
+				}
+				corpusfwTotal.write("</h1>\n");
+				corpusfwTotal.write(content);
+				corpusfwTotal.write("</section>\n");
 				corpusfwSingle.write(rr.getText() + content + "\n");
-
 			}
 
 			// do source expansion on answer
@@ -111,11 +126,26 @@ public class SourceExpansion {
 						}
 				//		System.out.println(content);
 						// write corpus to file
+<<<<<<< Updated upstream
 						String x  = rr.getText();
 					//	System.out.println("******************");
 						//System.out.println("\n"+x);
 						String title  = x.substring(0, x.indexOf("..."));
 						corpusfwTotal.write(rr.getText() + content + "\n");
+=======
+						String temp = rr.getText();
+						
+						corpusfwTotal.write("<section>\n");
+						if(!temp.contains("...")){
+							corpusfwTotal.write("<h1>"+rr.getText().split("\n")[0]);
+						}else{
+							corpusfwTotal.write("<h1>"+ temp.substring(0, temp.indexOf("...")));
+						}
+						corpusfwTotal.write("</h1>\n");
+						corpusfwTotal.write(content);
+						corpusfwTotal.write("</section>\n");
+						
+>>>>>>> Stashed changes
 						corpusfwSingle.write(rr.getText() + content + "\n");
 
 					}
@@ -164,6 +194,7 @@ public class SourceExpansion {
 
 		this.sourceExpansion(questions, answers, true, 2);
 	}
+<<<<<<< Updated upstream
 
 	public void setCorpusPath(String path) {
 		SourceExpansion.corpusPath = path;
@@ -193,4 +224,6 @@ public class SourceExpansion {
 	public String getAccountKey(String key) {
 		return SourceExpansion.accountKey;
 	}
+=======
+>>>>>>> Stashed changes
 }

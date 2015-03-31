@@ -1,9 +1,13 @@
 package edu.cmu.lti.oaqa.workflow;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.HashSet;
+
+import org.apache.hadoop.hdfs.server.namenode.status_jsp;
 
 import de.l3s.boilerpipe.BoilerpipeProcessingException;
 import edu.cmu.lti.oapa.evaluation.Evaluation;
@@ -16,6 +20,9 @@ import edu.cmu.lti.oaqa.expansion.SourceExpansion;
  */
 
 public class RetrievalBaselineWorkflow {
+	private static String accountKey = "TT15WkPtBHfSFTPRJLAMsEgjeaII0J8A7wAEP9J/Hk4";
+	private static String corpusPath = "../data/dso/explored-corpus/file.html";
+	
 	public static void main(String[] args) throws URISyntaxException,
 			IOException, BoilerpipeProcessingException, ClassCastException, ClassNotFoundException {
 		HashMap<String,String> QuestionPath = new HashMap<>();
@@ -27,15 +34,23 @@ public class RetrievalBaselineWorkflow {
 		HashMap<String, HashSet<String>> answers = rd.readAnswer(AnswerPath.get("Training"));
 	
 		// source expansion
-		SourceExpansion se = new SourceExpansion();
-		//se.sourceExpansion(questions, answers, true, 1);
+		SourceExpansion se = new SourceExpansion(accountKey, corpusPath);
+		se.sourceExpansion(questions, answers, true, 1);
 		
 		// iterate expansion
-		se.iterateExpasion(questions, answers,2);
+		//se.iterateExpasion(questions, answers,2);
 		
 		// evaluation
 		Evaluation eva = new Evaluation();
-		eva.BinaryAnswerRecall(AnswerPath, se.getCorpusPath());
+		eva.BinaryAnswerRecallWatson(QuestionPath, AnswerPath);
+		
+		// write html format
+		RandomAccessFile raf = new RandomAccessFile(new File(corpusPath), "rw");
+		raf.seek(0);
+		raf.write("<!DOCTYPE html>\n<html>\n".getBytes());
+		raf.seek(raf.length());
+		raf.write("</html>".getBytes());
+		raf.close();
 	}	
 	
 	public static void makePath(HashMap<String,String> QuestionPath,HashMap<String, String> AnswerPath ) {
