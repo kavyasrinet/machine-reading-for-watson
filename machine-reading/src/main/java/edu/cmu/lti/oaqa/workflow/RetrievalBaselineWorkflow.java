@@ -35,7 +35,7 @@ public class RetrievalBaselineWorkflow {
 	
 		// source expansion
 		SourceExpansion se = new SourceExpansion(accountKey, corpusPath);
-		se.sourceExpansion(questions, answers, true, 1);
+		//se.sourceExpansion(questions, answers, true, 1);
 		
 		// iterate expansion
 		//se.iterateExpasion(questions, answers,2);

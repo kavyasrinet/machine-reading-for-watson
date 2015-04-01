@@ -89,7 +89,6 @@ public class SourceExpansion {
 				RetrievalResult rr = result.get(i);
 				// get web page content
 				if (getContent) {
-				  
 					content = client.fetch(rr.getUrl());
 				} else {
 					content = "";
@@ -126,13 +125,11 @@ public class SourceExpansion {
 						}
 				//		System.out.println(content);
 						// write corpus to file
-<<<<<<< Updated upstream
+
 						String x  = rr.getText();
-					//	System.out.println("******************");
-						//System.out.println("\n"+x);
 						String title  = x.substring(0, x.indexOf("..."));
 						corpusfwTotal.write(rr.getText() + content + "\n");
-=======
+
 						String temp = rr.getText();
 						
 						corpusfwTotal.write("<section>\n");
@@ -145,7 +142,6 @@ public class SourceExpansion {
 						corpusfwTotal.write(content);
 						corpusfwTotal.write("</section>\n");
 						
->>>>>>> Stashed changes
 						corpusfwSingle.write(rr.getText() + content + "\n");
 
 					}
@@ -194,10 +190,9 @@ public class SourceExpansion {
 
 		this.sourceExpansion(questions, answers, true, 2);
 	}
-<<<<<<< Updated upstream
 
 	public void setCorpusPath(String path) {
-		SourceExpansion.corpusPath = path;
+		this.corpusPath = path;
 	}
 	
 	public static String getContent(URL url) throws IOException{
@@ -214,16 +209,14 @@ public class SourceExpansion {
 	}
 
 	public void setAccountKey(String key) {
-		SourceExpansion.accountKey = key;
+		this.accountKey = key;
 	}
 
 	public String getCorpusPath() {
-		return SourceExpansion.corpusPath;
+		return corpusPath;
 	}
 
 	public String getAccountKey(String key) {
-		return SourceExpansion.accountKey;
+		return accountKey;
 	}
-=======
->>>>>>> Stashed changes
 }

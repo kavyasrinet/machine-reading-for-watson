@@ -2,6 +2,7 @@ package edu.cmu.lti.oapa.evaluation;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -18,8 +19,8 @@ import edu.cmu.lti.oaqa.expansion.ReadData;
 import edu.cmu.lti.oaqa.watson.QAApiQuerier;
 
 public class Evaluation {
-	static boolean done = false;
-
+	private static boolean done = false;
+	private static String resultPath = "../data/dso";
 	public static double computeBinaryAnswerRecall(String path,
 			HashMap<String, HashSet<String>> answers)
 			throws FileNotFoundException {
@@ -64,6 +65,7 @@ public class Evaluation {
 		}
 
 		for(String qid : question.keySet()){
+			System.out.println("question id:" + qid);
 			watsonAnswer = querier.fetch(question.get(qid), true);
 			watsonAnswer = watsonAnswer.getJSONObject("question");
 		    JSONArray ja = watsonAnswer.getJSONArray("evidencelist");
@@ -73,8 +75,7 @@ public class Evaluation {
 		    		appear += getAppearance(answers, temp.getString("text"), found, total);
 				} catch (Exception e) {
 
-				}
-		    	
+				}	
 			}
 			if (done)
 				break;
@@ -150,6 +151,8 @@ public class Evaluation {
 	public void BinaryAnswerRecall(HashMap<String, String> AnswerPath,
 			String CorpusPath) throws IOException, URISyntaxException,
 			BoilerpipeProcessingException {
+		FileWriter fw = new FileWriter(new File(resultPath));
+		
 		System.out.println("Computing binary answer recall...");
 		double recall = 0.0;
 
@@ -160,19 +163,23 @@ public class Evaluation {
 
 		recall = computeBinaryAnswerRecall(CorpusPath, trainingset);
 		System.out.println("The recall of training set is :" + recall);
-
+		fw.write("The recall of training set is :" + recall+"\n");
+		
 		// Development Set
 		HashMap<String, HashSet<String>> devset = rd.readAnswer(AnswerPath
 				.get("Development"));
 		recall = computeBinaryAnswerRecall(CorpusPath, devset);
 		System.out.println("The recall of development set is :" + recall);
-
+		fw.write("The recall of development set is :" + recall+"\n");
+		
 		// Test Set
 		HashMap<String, HashSet<String>> testset = rd.readAnswer(AnswerPath
 				.get("Test"));
 		recall = computeBinaryAnswerRecall(CorpusPath, testset);
 		System.out.println("The recall of test set is :" + recall);
-
+		fw.write("The recall of test set is :" + recall+"\n");
+		
+		fw.close();
 	}
 
 }

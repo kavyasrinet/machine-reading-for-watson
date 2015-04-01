@@ -18,6 +18,9 @@ import edu.cmu.lti.oaqa.expansion.SourceExpansion;
  */
 
 public class RetrievalBaselineWorkflow_pruned {
+	private static String accountKey = "TT15WkPtBHfSFTPRJLAMsEgjeaII0J8A7wAEP9J/Hk4";
+	private static String corpusPath = "../data/dso/explored-corpus/file.html";
+	
 	public static void main(String[] args) throws URISyntaxException,
 			IOException, BoilerpipeProcessingException, ClassCastException, ClassNotFoundException {
 		HashMap<String,String> QuestionPath = new HashMap<>();
@@ -29,7 +32,7 @@ public class RetrievalBaselineWorkflow_pruned {
 		HashMap<String, HashSet<String>> answers = rd.readAnswer(AnswerPath.get("Training"));
 	
 		// source expansion
-		SourceExpansion se = new SourceExpansion();
+		SourceExpansion se = new SourceExpansion(accountKey, corpusPath);
 		se.sourceExpansion(questions, answers, true, 1);
 		
 		// iterate expansion
@@ -37,10 +40,10 @@ public class RetrievalBaselineWorkflow_pruned {
 		
 		// evaluation
 		
-		System.out.println( new File(se.getCorpusPath()).length());
+		System.out.println( new File(corpusPath).length());
 
 		Evaluation eva = new Evaluation();
-		eva.BinaryAnswerRecall(AnswerPath, se.getCorpusPath());
+		eva.BinaryAnswerRecall(AnswerPath, corpusPath);
 		
 		CorpusPruner cp = new CorpusPruner(se);
 		String corpus_pruned = cp.prune_corpus();
