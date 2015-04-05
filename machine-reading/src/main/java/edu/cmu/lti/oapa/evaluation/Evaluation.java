@@ -20,7 +20,9 @@ import edu.cmu.lti.oaqa.watson.QAApiQuerier;
 
 public class Evaluation {
 	private static boolean done = false;
-	private static String resultPath = "../data/dso";
+	private static String resultPath = "../data/dso/result.eval";
+	private static String wastonPath = "../data/dso/result.waston";
+	
 	public static double computeBinaryAnswerRecall(String path,
 			HashMap<String, HashSet<String>> answers)
 			throws FileNotFoundException {
@@ -51,10 +53,13 @@ public class Evaluation {
 
 	public double computeBinaryAnswerRecallWatson(
 			HashMap<String, String> question,
-			HashMap<String, HashSet<String>> answers) throws IOException {
+			HashMap<String, HashSet<String>> answers, String path) throws IOException {
+		FileWriter fw = new FileWriter(new File(path));
+		
 		done = false;
 		int total = 0;
 		int appear = 0;
+		int rst = 0;
 		QAApiQuerier querier = new QAApiQuerier();
 		JSONObject watsonAnswer = null;
 
@@ -69,10 +74,16 @@ public class Evaluation {
 			watsonAnswer = querier.fetch(question.get(qid), true);
 			watsonAnswer = watsonAnswer.getJSONObject("question");
 		    JSONArray ja = watsonAnswer.getJSONArray("evidencelist");
+		    fw.write("id:" + qid + "\nquestion:" + question.get(qid)+"\n");
 		    for (int i = 0; i < ja.length(); i++) {
 		    	JSONObject temp = (JSONObject) ja.get(i);
 		    	try {
-		    		appear += getAppearance(answers, temp.getString("text"), found, total);
+		    		rst = getAppearance(answers, temp.getString("text"), found, total);
+		    		if(rst != 0){
+		    			appear += rst;
+		    			fw.write("answer:\n"+temp.getString("text")+"\n");
+		    			fw.write("evidencelist:\n"+(i+1)+"\n");
+		    		}
 				} catch (Exception e) {
 
 				}	
@@ -81,7 +92,7 @@ public class Evaluation {
 				break;
 		}
 			
-
+		fw.close();
 		return (double) appear / total;
 	}
 
@@ -119,7 +130,8 @@ public class Evaluation {
 
 	public void BinaryAnswerRecallWatson(HashMap<String, String> QuestionPath,
 			HashMap<String, String> AnswerPath) throws IOException {
-
+		
+		FileWriter fw = new FileWriter(new File(resultPath));
 		System.out.println("Computing binary answer recall...");
 		double recall = 0.0;
 
@@ -130,22 +142,26 @@ public class Evaluation {
 		HashMap<String, String> question = rd.readQuestions(QuestionPath
 				.get("Training"));
 
-		recall = computeBinaryAnswerRecallWatson(question, answer);
+		recall = computeBinaryAnswerRecallWatson(question, answer, wastonPath+".train");
 		System.out.println("The recall of training set is :" + recall);
+		fw.write("The recall of training set is :" + recall+"\n");
 
 		// Development Set
 		answer = rd.readAnswer(AnswerPath.get("Development"));
 		question = rd.readQuestions(QuestionPath.get("Development"));
 
-		recall = computeBinaryAnswerRecallWatson(question, answer);
+		recall = computeBinaryAnswerRecallWatson(question, answer, wastonPath+".dev");
 		System.out.println("The recall of development set is :" + recall);
+		fw.write("The recall of development set is :" + recall+"\n");
 
 		// Test Set
 		answer = rd.readAnswer(AnswerPath.get("Test"));
 		question = rd.readQuestions(QuestionPath.get("Test"));
 
-		recall = computeBinaryAnswerRecallWatson(question, answer);
+		recall = computeBinaryAnswerRecallWatson(question, answer, wastonPath+".test");
 		System.out.println("The recall of test set is :" + recall);
+		fw.write("The recall of test set is :" + recall+"\n");
+		fw.close();
 	}
 
 	public void BinaryAnswerRecall(HashMap<String, String> AnswerPath,
