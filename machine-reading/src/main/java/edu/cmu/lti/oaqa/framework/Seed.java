@@ -1,7 +1,7 @@
 /*
  * This is the seed class for each Machine Reading State.
  * */
-package edu.cmu.lti.oapa.framework;
+package edu.cmu.lti.oaqa.framework;
 
 import java.util.ArrayList;
 

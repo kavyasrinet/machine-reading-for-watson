@@ -1,7 +1,7 @@
 /*
  * This is the class of corpus for Machine Reading State.
  * */
-package edu.cmu.lti.oapa.framework;
+package edu.cmu.lti.oaqa.framework;
 
 import java.util.ArrayList;
 import org.w3c.dom.Document;

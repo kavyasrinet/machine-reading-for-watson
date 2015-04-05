@@ -10,7 +10,7 @@ import java.util.HashSet;
 import org.apache.hadoop.hdfs.server.namenode.status_jsp;
 
 import de.l3s.boilerpipe.BoilerpipeProcessingException;
-import edu.cmu.lti.oapa.evaluation.Evaluation;
+import edu.cmu.lti.oaqa.evaluation.Evaluation;
 import edu.cmu.lti.oaqa.expansion.ReadData;
 import edu.cmu.lti.oaqa.expansion.SourceExpansion;
 

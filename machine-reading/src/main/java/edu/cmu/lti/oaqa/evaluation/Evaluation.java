@@ -1,4 +1,4 @@
-package edu.cmu.lti.oapa.evaluation;
+package edu.cmu.lti.oaqa.evaluation;
 
 import java.io.File;
 import java.io.FileNotFoundException;

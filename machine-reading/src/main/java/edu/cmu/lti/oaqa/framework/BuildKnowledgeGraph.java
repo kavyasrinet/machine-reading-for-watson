@@ -1,4 +1,4 @@
-package edu.cmu.lti.oapa.framework;
+package edu.cmu.lti.oaqa.framework;
 
 public class BuildKnowledgeGraph {
 
