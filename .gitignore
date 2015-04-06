@@ -32,3 +32,5 @@ target/
 
 log/
 xmi/
+
+credential.properties
