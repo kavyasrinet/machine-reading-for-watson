@@ -1,15 +1,25 @@
 package edu.cmu.lti.oaqa.corpus;
 
+import edu.stanford.nlp.ie.AbstractSequenceClassifier;
+import edu.stanford.nlp.ie.crf.CRFClassifier;
+import edu.stanford.nlp.ling.CoreLabel;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+
+import edu.stanford.nlp.ie.AbstractSequenceClassifier;
+import edu.stanford.nlp.ie.crf.CRFClassifier;
+import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 public class BuildPseudoDocument {
 	private static boolean VERBOSE = false;
@@ -31,13 +41,9 @@ public class BuildPseudoDocument {
 		return result;
 	}
 
-//<<<<<<< Updated upstream
-//	public ArrayList<String> build(String corpus_address, String query, int mode) throws IOException, ClassCastException, ClassNotFoundException {
-//		if (query.endsWith("?"))
-//=======
 	public ArrayList<String> build(String corpus_address, String query) throws IOException {
 		if (query.endsWith("\\?"))
-//>>>>>>> Stashed changes
+
 			query = query.substring(0, query.length() - 1);
 		ArrayList<String> relSentences = new ArrayList<>();
 		BufferedReader br = new BufferedReader(new FileReader(corpus_address));
@@ -153,4 +159,61 @@ public class BuildPseudoDocument {
 		return res;
 		
 	}//end main 
-}
+	
+	public HashMap<String, HashSet<String>> getNER(String line) throws ClassCastException, ClassNotFoundException, IOException{
+	  HashMap<String, HashSet<String>> setOfTags = new HashMap<String, HashSet<String>>();
+	  HashSet<String> set = new HashSet<String>();
+	  HashSet<String> set2 = new HashSet<String>();
+	  String serializedClassifier = "../data/classifiers/english.all.3class.distsim.crf.ser.gz";
+    AbstractSequenceClassifier<CoreLabel> classifier = CRFClassifier.getClassifier(serializedClassifier);
+    MaxentTagger tagger = new MaxentTagger("taggers/left3words-wsj-0-18.tagger");
+
+    String NERStr = classifier.classifyToString(line);
+    String tagged = tagger.tagTokenizedString(line);
+    
+    System.out.println(NERStr);
+    String [] words = NERStr.split("\\s");
+    String prev_tag = "";
+    String prev_str = "";
+    for(String word : words)
+    {
+      String[] NER = word.split("/");
+      if(NER.length > 1)
+      {
+        String t = NER[1];
+        if(t.compareTo("O") != 0)
+        {
+          set.add(NER[0]);
+          if (t.equals(prev_tag)){
+            
+            String newName = prev_str+" "+NER[0];
+            set2.add(newName);
+            prev_str = newName;
+            prev_tag  = t;
+          }
+          prev_tag = t;
+          prev_str = NER[0];
+        }
+        
+      }
+      
+    }
+    setOfTags.put("NER1",set);
+    setOfTags.put("NER2", set2);
+    HashSet<String> verb = new HashSet<String>();
+    HashSet<String> noun = new HashSet<String>();
+    words = tagged.split("\\s");
+    for(String word : words){
+      String[] tg = word.split("_");
+      if (tg[1].startsWith("NN")){
+        noun.add(tg[0]);
+      }
+      else if (tg[1].startsWith("VB"))
+        verb.add(tg[0]);
+    }
+    setOfTags.put("Verb",verb);
+    setOfTags.put("Noun",noun);
+    
+    return setOfTags;
+        }
+	}
