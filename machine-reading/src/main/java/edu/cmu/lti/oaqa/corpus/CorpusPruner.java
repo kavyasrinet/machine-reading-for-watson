@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import edu.cmu.lti.oaqa.expansion.SourceExpansion;
+import edu.cmu.lti.oaqa.framework.SourceExpansion;
 
 public class CorpusPruner {
 

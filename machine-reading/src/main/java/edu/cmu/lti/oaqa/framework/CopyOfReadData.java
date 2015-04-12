@@ -1,4 +1,4 @@
-package edu.cmu.lti.oaqa.expansion;
+package edu.cmu.lti.oaqa.framework;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,7 +11,7 @@ import java.util.Scanner;
  * 
  * @author Yepeng Yin
  */
-public class ReadData {
+public class CopyOfReadData {
 	/*
 	 * Read Answer from file that in range of line [start, end].
 	 * 

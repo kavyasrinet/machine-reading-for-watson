@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 import de.l3s.boilerpipe.BoilerpipeProcessingException;
 import edu.cmu.lti.oaqa.corpus.BuildPseudoDocument;
-import edu.cmu.lti.oaqa.expansion.ReadData;
+import edu.cmu.lti.oaqa.framework.ReadData;
 import edu.cmu.lti.oaqa.watson.QAApiQuerier;
 
 public class Evaluation {
