@@ -1,8 +1,14 @@
 package edu.cmu.lti.oaqa.framework;
 
+import java.util.ArrayList;
+
 public class QuestionData
 {
-	String Question;
-	String Answer;
-
+	public String Question;
+	public ArrayList<String> Answer;
+	
+	public QuestionData(String question, ArrayList<String> answer){
+		Question = question;
+		Answer = answer;
+	}
 }

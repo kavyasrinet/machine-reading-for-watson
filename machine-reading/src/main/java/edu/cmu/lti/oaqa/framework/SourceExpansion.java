@@ -54,7 +54,7 @@ public class SourceExpansion {
 	 */
 	public ArrayList<Document> sourceExpansion(HashMap<String, String> questions,
 			HashMap<String, HashSet<String>> answers,
-			boolean getContent, int mode) throws URISyntaxException,
+			boolean getContent, int mode, int retrieveNum) throws URISyntaxException,
 			IOException {
 		// expanded corpus
 		ArrayList<Document> newCorpus = new ArrayList<Document>();
@@ -66,20 +66,11 @@ public class SourceExpansion {
 			System.out.println("Empty questions list");
 			return newCorpus;
 		}
-		
-		FileWriter corpusfwTotal = null;
-		FileWriter corpusfwSingle = null;
-
-		if (mode == 1) {
-			corpusfwTotal = new FileWriter(corpusPath);
-		} else if (mode == 2) {
-			corpusfwTotal = new FileWriter(corpusPath, true);
-		}
 
 		BingSearchAgent bsa = new BingSearchAgent();
 		bsa.initialize(accountKey);
 		// set retrieve document size
-		bsa.setResultSetSize(5);
+		bsa.setResultSetSize(retrieveNum);
 
 		ArrayList<String> keyTerms = new ArrayList<>();
 		ArrayList<String> keyPhrases = new ArrayList<>();
@@ -90,20 +81,22 @@ public class SourceExpansion {
 		BoilerpipeCachedClient client = new BoilerpipeCachedClient();
 		
 		for (String qid : questions.keySet()) {
-			System.out.println("Processing question:\n" + questions.get(qid));
+			if(VERBOSE){
+				System.out.println("Processing question:\n" + questions.get(qid));
+			}
+			
+			// Get the results from bing search
 			List<RetrievalResult> result = bsa.retrieveDocuments(qid,
 					questions.get(qid), keyTerms, keyPhrases);
-			if (mode == 1) {
-				corpusfwSingle = new FileWriter(corpusPath + index);
-			} else if (mode == 2) {
-				corpusfwSingle = new FileWriter(corpusPath + index, true);
-			}
+			
 			for (int i = 0; i < result.size(); i++) {
 				RetrievalResult rr = result.get(i);
 				// get web page content
 				if (getContent) {
+					if(VERBOSE){
+						System.out.println("Fetching "+rr.getUrl());
+					}
 					content = client.fetch(rr.getUrl());
-					System.out.println("fetching "+rr.getUrl());
 				} else {
 					content = "";
 				}
