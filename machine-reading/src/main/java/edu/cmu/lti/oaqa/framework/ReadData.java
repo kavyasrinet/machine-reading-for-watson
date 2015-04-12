@@ -2,6 +2,7 @@ package edu.cmu.lti.oaqa.framework;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -12,17 +13,39 @@ import java.util.Scanner;
  * @author Yepeng Yin
  */
 public class ReadData {
+	public ArrayList<QuestionData> readQuestionData(String questionPath, String answerPath) throws Exception {
+		ArrayList<QuestionData> data = new ArrayList<QuestionData>();
+		
+		HashMap<String, String> questions = readQuestions(questionPath);
+		HashMap<String, HashSet<String>> answers = readAnswers(answerPath);
+		
+		if(questions.size() != answers.size()){
+			System.out.println("Questions and answers are not corresponding.");
+			System.exit(1);
+		}
+		
+		for(String qid: questions.keySet()){
+			if(answers.containsKey(qid)){
+				data.add(new QuestionData(questions.get(qid), new ArrayList<String>(answers.get(qid))));
+			}else{
+				System.err.println("Question and answer are not corresponding:");
+				System.err.println("Have qid: "+ qid + ", question: "+questions.get(qid));
+			}
+		}
+		
+		return data;
+	}
+	
 	/*
 	 * Read Answer from file that in range of line [start, end].
 	 * 
 	 * @param path Path of file
 	 * 
-	 * @param answer Read answer. The key of outer hashmap is qid. The key of
-	 * inner hashmap is candidate answer and the value is appearance time.
+	 * @param answer Read answer. The key is qid and the value is a set of candidate answers.
 	 * 
 	 * @return Hashmap of candidate answers.
 	 */
-	public HashMap<String, HashSet<String>> readAnswer(String path)
+	public HashMap<String, HashSet<String>> readAnswers(String path)
 			throws FileNotFoundException {
 	
 		HashMap<String, HashSet<String>> answer = new HashMap<String, HashSet<String>>();
