@@ -8,30 +8,19 @@ import org.w3c.dom.Document;
 
 
 public class Corpus {
-	private ArrayList<String> urls;
 	private ArrayList<Document> docs;  // may be change to different types, such as String
 	
 	public Corpus(){
-		this.urls = new ArrayList<String>();
 		this.docs = new ArrayList<Document>();
 	}
 	
-	public void addDoc(String url, Document doc){
-		urls.add(url);
+	public void addDoc(Document doc){
 		docs.add(doc);
 	}
 	
 	/*
 	 * Following functions are Getters and Setters
 	 * */
-	public ArrayList<String> getUrls() {
-		return urls;
-	}
-
-	public void setUrls(ArrayList<String> urls) {
-		this.urls = urls;
-	}
-
 	public ArrayList<Document> getDocs() {
 		return docs;
 	}

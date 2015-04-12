@@ -25,7 +25,7 @@ public class WatsonMachineReader implements MachineReader
 		Corpus corpus = new Corpus();
 		KnowledgeGraph kg = new KnowledgeGraph();
 		double threshold = 0.9;
-		RootState = new WatsonMRState(Seeds, corpus, kg, threshold)
+		RootState = new WatsonMRState(Seeds, corpus, kg, threshold);
 		
 	}
 

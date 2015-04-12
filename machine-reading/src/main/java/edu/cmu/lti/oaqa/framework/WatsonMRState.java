@@ -8,12 +8,12 @@ public class WatsonMRState implements MRState{
 	private KnowledgeGraph kg;
 	private MRState parentState;
 	private ArrayList<MRState> childrenStates;
-	private int threshold;
+	private double threshold;
 	
 	// Other fields add here
 	
 	// Constructor
-	public WatsonMRState(ArrayList<Seed> seeds, Corpus corpus, KnowledgeGraph kg, int threshold) {
+	public WatsonMRState(ArrayList<Seed> seeds, Corpus corpus, KnowledgeGraph kg, double threshold) {
 		this.seeds = seeds;
 		this.corpus = corpus;
 		this.kg = kg;
@@ -99,11 +99,11 @@ public class WatsonMRState implements MRState{
 		this.childrenStates = childrenStates;
 	}
 
-	public int getThreshold() {
+	public double getThreshold() {
 		return threshold;
 	}
 
-	public void setThreshold(int threshold) {
+	public void setThreshold(double threshold) {
 		this.threshold = threshold;
 	}
 }
