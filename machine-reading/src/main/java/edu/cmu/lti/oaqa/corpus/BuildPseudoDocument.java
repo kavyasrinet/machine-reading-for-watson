@@ -37,7 +37,6 @@ public class BuildPseudoDocument {
 //=======
 	public ArrayList<String> build(String corpus_address, String query) throws IOException {
 		if (query.endsWith("\\?"))
-//>>>>>>> Stashed changes
 			query = query.substring(0, query.length() - 1);
 		ArrayList<String> relSentences = new ArrayList<>();
 		BufferedReader br = new BufferedReader(new FileReader(corpus_address));
