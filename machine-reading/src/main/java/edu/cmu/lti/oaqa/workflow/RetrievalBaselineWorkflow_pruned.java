@@ -9,8 +9,8 @@ import java.util.HashSet;
 import de.l3s.boilerpipe.BoilerpipeProcessingException;
 import edu.cmu.lti.oaqa.corpus.CorpusPruner;
 import edu.cmu.lti.oaqa.evaluation.Evaluation;
-import edu.cmu.lti.oaqa.expansion.ReadData;
-import edu.cmu.lti.oaqa.expansion.SourceExpansion;
+import edu.cmu.lti.oaqa.framework.ReadData;
+import edu.cmu.lti.oaqa.framework.SourceExpansion;
 
 /**
  * @author Di Wang, Qiang Zhu, Xiaoqiu Huang, Liping Xiong, Yepeng Yin, Kavay

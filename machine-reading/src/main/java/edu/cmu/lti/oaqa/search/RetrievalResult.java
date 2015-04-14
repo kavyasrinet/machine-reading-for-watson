@@ -1,21 +1,21 @@
 package edu.cmu.lti.oaqa.search;
 
+public class RetrievalResult {
 
-public class RetrievalResult  {
-
-	private String docID, text ;
+	private String docID, text;
 
 	private int rank = -1;
 	private float probability;
 
 	public float getProbability() {
-    return probability;
-  }
+		return probability;
+	}
 
-  public void setProbability(float probability) {
-    this.probability = probability;
-  }
-  private String queryString, url;
+	public void setProbability(float probability) {
+		this.probability = probability;
+	}
+
+	private String queryString, url;
 
 	public RetrievalResult() {
 		super();
@@ -28,8 +28,8 @@ public class RetrievalResult  {
 		this.queryString = queryString;
 	}
 
-	public RetrievalResult(String docID , float score, String queryString,
-			String  text , String url ) {
+	public RetrievalResult(String docID, float score, String queryString,
+			String text, String url) {
 		super();
 		this.docID = docID;
 		this.probability = score;
@@ -53,19 +53,21 @@ public class RetrievalResult  {
 	public void setRank(int rank) {
 		this.rank = rank;
 	}
-	
+
 	public String getUrl() {
 		return url;
 	}
+
 	public String toString() {
-		return "[" + docID + " " + url + "]" ; // \n " + text + "]";
+		return "[" + docID + " " + url + "]"; // \n " + text + "]";
 	}
-	public String getText(){
+
+	public String getText() {
 		return text;
 	}
-	public void setText( String text ){
+
+	public void setText(String text) {
 		this.text = text;
 	}
 
-	
 }

@@ -39,7 +39,8 @@ public class BuildPseudoDocument_keywordsNER {
 		for (String str : sentences) {
 			str = str.replaceAll("\\W+", " ");
 			String NERStr = classifier.classifyToString(str);
-			//System.out.println(NERStr);
+
+			System.out.println(NERStr);
 			String [] words = NERStr.split("\\s");
 			for(String word : words)
 			{

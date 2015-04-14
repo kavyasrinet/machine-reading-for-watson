@@ -33,4 +33,8 @@ target/
 log/
 xmi/
 
+# credential file
 credential.properties
+
+# runtime file
+data/dso/runtime_file/

@@ -11,8 +11,8 @@ import org.apache.hadoop.hdfs.server.namenode.status_jsp;
 
 import de.l3s.boilerpipe.BoilerpipeProcessingException;
 import edu.cmu.lti.oaqa.evaluation.Evaluation;
-import edu.cmu.lti.oaqa.expansion.ReadData;
-import edu.cmu.lti.oaqa.expansion.SourceExpansion;
+import edu.cmu.lti.oaqa.framework.ReadData;
+import edu.cmu.lti.oaqa.framework.SourceExpansion;
 
 /**
  * @author Di Wang, Qiang Zhu, Xiaoqiu Huang, Liping Xiong, Yepeng Yin, Kavay
@@ -35,10 +35,10 @@ public class RetrievalBaselineWorkflow {
 	
 		// source expansion
 		SourceExpansion se = new SourceExpansion(accountKey, corpusPath);
-		se.sourceExpansion(questions, answers, true, 1);
+		//se.sourceExpansion(questions, answers, true, 1);
 		
 		// iterate expansion
-		//se.iterateExpasion(questions, answers,2);
+//		se.iterateExpasion(questions, answers,1);
 		
 		// evaluation
 		Evaluation eva = new Evaluation();

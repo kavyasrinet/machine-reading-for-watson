@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 import de.l3s.boilerpipe.BoilerpipeProcessingException;
 import edu.cmu.lti.oaqa.corpus.BuildPseudoDocument;
-import edu.cmu.lti.oaqa.expansion.ReadData;
+import edu.cmu.lti.oaqa.framework.ReadData;
 import edu.cmu.lti.oaqa.watson.QAApiQuerier;
 
 public class Evaluation {
@@ -137,7 +137,7 @@ public class Evaluation {
 
 		// Training Set
 		ReadData rd = new ReadData();
-		HashMap<String, HashSet<String>> answer = rd.readAnswer(AnswerPath
+		HashMap<String, HashSet<String>> answer = rd.readAnswers(AnswerPath
 				.get("Training"));
 		HashMap<String, String> question = rd.readQuestions(QuestionPath
 				.get("Training"));
@@ -147,7 +147,7 @@ public class Evaluation {
 		fw.write("The recall of training set is :" + recall+"\n");
 
 		// Development Set
-		answer = rd.readAnswer(AnswerPath.get("Development"));
+		answer = rd.readAnswers(AnswerPath.get("Development"));
 		question = rd.readQuestions(QuestionPath.get("Development"));
 
 		recall = computeBinaryAnswerRecallWatson(question, answer, wastonPath+".dev");
@@ -155,7 +155,7 @@ public class Evaluation {
 		fw.write("The recall of development set is :" + recall+"\n");
 
 		// Test Set
-		answer = rd.readAnswer(AnswerPath.get("Test"));
+		answer = rd.readAnswers(AnswerPath.get("Test"));
 		question = rd.readQuestions(QuestionPath.get("Test"));
 
 		recall = computeBinaryAnswerRecallWatson(question, answer, wastonPath+".test");
@@ -174,7 +174,7 @@ public class Evaluation {
 
 		// Training Set
 		ReadData rd = new ReadData();
-		HashMap<String, HashSet<String>> trainingset = rd.readAnswer(AnswerPath
+		HashMap<String, HashSet<String>> trainingset = rd.readAnswers(AnswerPath
 				.get("Training"));
 
 		recall = computeBinaryAnswerRecall(CorpusPath, trainingset);
@@ -182,14 +182,14 @@ public class Evaluation {
 		fw.write("The recall of training set is :" + recall+"\n");
 		
 		// Development Set
-		HashMap<String, HashSet<String>> devset = rd.readAnswer(AnswerPath
+		HashMap<String, HashSet<String>> devset = rd.readAnswers(AnswerPath
 				.get("Development"));
 		recall = computeBinaryAnswerRecall(CorpusPath, devset);
 		System.out.println("The recall of development set is :" + recall);
 		fw.write("The recall of development set is :" + recall+"\n");
 		
 		// Test Set
-		HashMap<String, HashSet<String>> testset = rd.readAnswer(AnswerPath
+		HashMap<String, HashSet<String>> testset = rd.readAnswers(AnswerPath
 				.get("Test"));
 		recall = computeBinaryAnswerRecall(CorpusPath, testset);
 		System.out.println("The recall of test set is :" + recall);

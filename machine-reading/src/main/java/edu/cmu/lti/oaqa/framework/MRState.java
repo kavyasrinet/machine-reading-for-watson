@@ -1,49 +1,19 @@
 package edu.cmu.lti.oaqa.framework;
 
-import java.util.ArrayList;
-
-public class MRState {
-	private ArrayList<Seed> seedSet;
-	private Corpus corpus;
-	private KnowledgeGraph kg;
-	
-	// initialize
-	public MRState(){
-		seedSet = new ArrayList<Seed>();
-		corpus = new Corpus();
-		kg = new KnowledgeGraph();
-	}
-	// other constructors add here
-	
+public interface MRState {
 	// Main work flow for Machine Reading State to transit from current state
 	// to next state based on different action
-	public void transition() {
-		
-	}
+	public void transition();
 	
 	// Main actions
-	public void expandSeeds() {
-		
-	}
+	public void updateSeeds();
 	
-	public void updateCorpus() {
-		
-	}
+	public void updateCorpus();
 	
 	// Main functions
-	public void pruneCorpus() {
-		
-	}
+	public void pruneCorpus();
 	
-	public void evaluateCorpus() {
-		
-	}
+	public void evaluateCorpus();
 	
-	public void saveCorpus() {
-		
-	}
-	
-	public void updateKnowledgeGraph() {
-		
-	}
+	public void saveCorpus();
 }
