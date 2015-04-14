@@ -36,5 +36,5 @@ xmi/
 # credential file
 credential.properties
 
-# runtime file
+# runtime file)
 data/dso/runtime_file/

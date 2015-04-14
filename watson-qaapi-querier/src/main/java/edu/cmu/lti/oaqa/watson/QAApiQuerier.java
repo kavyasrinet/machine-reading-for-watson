@@ -56,8 +56,10 @@ public class QAApiQuerier extends AbstractCachedFetcher<JSONObject> {
   public QAApiQuerier(String credentialPropPath) throws IOException {
     super(new MongoJsonCache(QAApiQuerier.class));
    
-    String username = "cmu_administrator";
-    String password = "H5W2lhXv";
+    Properties prop = new Properties();
+    prop.load(new FileInputStream(credentialPropPath));
+    String username = prop.getProperty("user").trim();
+    String password = prop.getProperty("password").trim();
 
     CredentialsProvider credsProvider = new BasicCredentialsProvider();
 

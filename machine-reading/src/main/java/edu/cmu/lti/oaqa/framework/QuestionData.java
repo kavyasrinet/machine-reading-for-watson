@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class QuestionData
 {
-	public String Question;
-	public ArrayList<String> Answer;
+	public String question;
+	public ArrayList<String> answer;
 	
 	public QuestionData(String question, ArrayList<String> answer){
-		Question = question;
-		Answer = answer;
+		this.question = question;
+		this.answer = answer;
 	}
 }

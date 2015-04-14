@@ -4,8 +4,6 @@
 package edu.cmu.lti.oaqa.framework;
 
 import java.util.ArrayList;
-import org.w3c.dom.Document;
-
 
 public class Corpus {
 	private ArrayList<Document> docs;  // may be change to different types, such as String

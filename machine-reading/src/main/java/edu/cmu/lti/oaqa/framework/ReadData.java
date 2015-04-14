@@ -20,7 +20,7 @@ public class ReadData {
 		HashMap<String, HashSet<String>> answers = readAnswers(answerPath);
 		
 		if(questions.size() != answers.size()){
-			System.out.println("Questions and answers are not corresponding.");
+			System.err.println("Questions and answers are not corresponding.");
 			System.exit(1);
 		}
 		
