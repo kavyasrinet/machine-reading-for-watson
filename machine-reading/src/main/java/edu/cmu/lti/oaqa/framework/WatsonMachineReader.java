@@ -14,7 +14,7 @@ public class WatsonMachineReader implements MachineReader
 	static ArrayList<QuestionData> developmentData;
 	static ArrayList<QuestionData> testData;
 	static WatsonMRState rootState;
-	static String settingPath = "";
+	public static String settingPath = "src/main/config/setting";
 	@Override
 	public void initializeReader(ArrayList<QuestionData> TrainingData)
 	{

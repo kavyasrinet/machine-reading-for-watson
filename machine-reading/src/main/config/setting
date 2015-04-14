@@ -4,3 +4,4 @@ q_test=../data/dso/questions/test_set.txt
 a_training=../data/dso/gold_standard/train_set.txt
 a_development=../data/dso/gold_standard/dev_set.txt
 a_test=../data/dso/gold_standard/test_set.txt
+corpus=../data/dso/runtime_file/corpus.html
