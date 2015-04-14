@@ -3,6 +3,8 @@
  */
 package edu.cmu.lti.oaqa.framework;
 
+import java.util.ArrayList;
+
 /**
  * @author SRIVATHS
  *
@@ -10,6 +12,6 @@ package edu.cmu.lti.oaqa.framework;
 public interface MachineReader
 {
 
-	public void initializeReader(String Questionpath, String Answerpath);
+	public void initializeReader(ArrayList<QuestionData> TrainingData);
 
 }
