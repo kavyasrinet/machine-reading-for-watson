@@ -89,9 +89,14 @@ public class QAApiQuerier extends AbstractCachedFetcher<JSONObject> {
     JSONArray ja = jsonOutput.getJSONArray("evidencelist");
     for (int i = 0; i < ja.length(); i++) {
     	JSONObject temp = (JSONObject) ja.get(i);
-    	System.out.println(temp.get("text"));
+    	try {
+    		System.out.println(temp.get("text"));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	
 	}
-    System.out.println(jsonOutput);
+    //System.out.println(jsonOutput);
   }
 
   public JSONObject fetchJsonFromPost(HttpPost httpPost) throws IOException {

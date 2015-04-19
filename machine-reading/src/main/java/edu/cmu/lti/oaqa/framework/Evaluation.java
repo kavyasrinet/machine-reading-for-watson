@@ -27,7 +27,7 @@ public class Evaluation {
 		this.documents = corpus.getDocs();
 	}
 
-	public double computeBinaryAnswerRecall(ArrayList<QuestionData> dataSet) {
+	private double computeBinaryAnswerRecall(ArrayList<QuestionData> dataSet) {
 		if (dataSet.size() == 0) {
 			return 0;
 		}
@@ -64,7 +64,7 @@ public class Evaluation {
 		return (double) (dataSet.size() - tempDataSet.size()) / dataSet.size();
 	}
 
-	public double computeBinaryAnswerRecallWatson(ArrayList<QuestionData> dataSet) throws Exception {
+	private double computeBinaryAnswerRecallWatson(ArrayList<QuestionData> dataSet) throws Exception {
 		// create a temp List to compute the BAR
 		ArrayList<QuestionData> tempDataSet = new ArrayList<QuestionData>(dataSet);
 		
