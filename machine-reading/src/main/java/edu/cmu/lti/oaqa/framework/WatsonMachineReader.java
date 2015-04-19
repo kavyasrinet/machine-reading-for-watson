@@ -34,6 +34,18 @@ public class WatsonMachineReader implements MachineReader
 		
 	}
 	
+	public void machineread()
+	{
+		
+		WatsonMRState current_state = rootState;
+		while(!current_state.isDoneReading())
+		{
+			current_state = (WatsonMRState)current_state.transition();
+		}
+		
+		current_state.saveCorpus();
+	}
+	
 	public static void main(String args[]) throws Exception
 	{
 		Properties prop = new Properties();
