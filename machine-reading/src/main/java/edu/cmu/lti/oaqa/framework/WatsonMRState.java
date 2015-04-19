@@ -9,6 +9,7 @@ public class WatsonMRState implements MRState{
 	private MRState parentState;
 	private ArrayList<MRState> childrenStates;
 	private double threshold;
+	private boolean doneReading = false;
 	
 	// Other fields add here
 	
@@ -21,9 +22,24 @@ public class WatsonMRState implements MRState{
 	}
 
 	@Override
-	public void transition() {
+	public MRState transition()
+	{
 		// TODO Auto-generated method stub
 		
+		MRState new_state =  new WatsonMRState(this.seeds, this.corpus, this.kg, this.threshold);
+		
+		if(evaluateCorpus("Development") > threshold)
+		{
+			new_state.updateCorpus();
+			new_state.updateSeeds();
+			new_state.pruneCorpus();
+		}
+		else
+		{
+			doneReading = true;
+		}
+
+		return new_state;
 	}
 
 	@Override
@@ -36,6 +52,7 @@ public class WatsonMRState implements MRState{
 	public void updateCorpus() {
 		// TODO Auto-generated method stub
 		
+		
 	}
 
 	@Override
@@ -45,9 +62,22 @@ public class WatsonMRState implements MRState{
 	}
 
 	@Override
-	public void evaluateCorpus() {
+	public double evaluateCorpus(String mode){
 		// TODO Auto-generated method stub
-		
+		try
+		{
+		Evaluation eval = new Evaluation(corpus);
+		return eval.BinaryAnswerRecall(mode);
+		}
+		catch( Exception e)
+		{
+			e.printStackTrace();
+			System.exit(1);
+		}
+		finally
+		{		
+			return 0.00;
+		}
 	}
 
 	@Override
@@ -105,5 +135,15 @@ public class WatsonMRState implements MRState{
 
 	public void setThreshold(double threshold) {
 		this.threshold = threshold;
+	}
+
+	public boolean isDoneReading()
+	{
+		return doneReading;
+	}
+
+	public void setDoneReading(boolean doneReading)
+	{
+		this.doneReading = doneReading;
 	}
 }
