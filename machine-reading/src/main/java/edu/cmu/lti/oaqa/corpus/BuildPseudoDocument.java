@@ -17,6 +17,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
@@ -51,25 +53,39 @@ public class BuildPseudoDocument {
 		if (query.endsWith("\\?"))
 			query = query.substring(0, query.length() - 1);
 		ArrayList<String> relSentences = new ArrayList<>();
+		final HashMap<String, Integer> scoreSet = new HashMap<>();
 		BufferedReader br = new BufferedReader(new FileReader(corpus_address));
-		HashMap<String, HashSet<String>> query_word = getNER(query,common_verbs);
+		HashMap<String, HashSet<String>> query_word = getKeywords(query,common_verbs);
 		String line;
 		while ((line = br.readLine()) != null) {
 			String[] sentences = line.split("[.|\\?]");
 			for (String sentence : sentences) {
-				HashMap<String, HashSet<String>> sent = getNER(sentence, common_verbs);
+				HashMap<String, HashSet<String>> sent = getKeywords(sentence, common_verbs);
 				int score = scoreSentences(sent, query_word);
-				if (score >= 6) {
+				if (score >= 8) {
 					relSentences.add(sentence);
-					System.out.println("score:"+score+"	"+sentence);
+					scoreSet.put(sentence, score);
+					
 				}
 			}
 		}
 		br.close();
-//		String idfdict_path = "../data/dso/idf_dictionary.txt";
-//		BuildPseudoDocument_keywordsTFIDF bpd_tfidf = new BuildPseudoDocument_keywordsTFIDF();
-//		return bpd_tfidf.getkeywords(relSentences, 10, idfdict_path);
-		//		return getKeywords(relSentences, query, 10);
+
+		Collections.sort(relSentences, new Comparator<String>(){
+			public int compare(String o1, String o2) {
+				if (scoreSet.get(o1) > scoreSet.get(o2))
+					return -1;
+				else if (scoreSet.get(o1) < scoreSet.get(o2))
+					return 1;
+				else
+					return 0;
+			}
+		});
+		
+		for (String sent : relSentences) {
+			System.out.println("score:"+scoreSet.get(sent)+" "+sent);
+		}
+		
 		return relSentences;
 	}
 
@@ -189,7 +205,7 @@ public class BuildPseudoDocument {
 
 	}//end main 
 
-	public HashMap<String, HashSet<String>> getNER(String line, HashSet<String> common_verbs) throws ClassCastException, ClassNotFoundException, IOException{
+	public HashMap<String, HashSet<String>> getKeywords(String line, HashSet<String> common_verbs) throws ClassCastException, ClassNotFoundException, IOException{
 		HashMap<String, HashSet<String>> setOfTags = new HashMap<String, HashSet<String>>();
 		HashSet<String> set = new HashSet<String>();
 		HashSet<String> set2 = new HashSet<String>();
