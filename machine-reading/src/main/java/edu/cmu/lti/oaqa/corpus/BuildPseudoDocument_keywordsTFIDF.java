@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import edu.cmu.lti.oaqa.workflow.RetrievalBaselineWorkflow;
-
 /**
  * @author Qiang Zhu.
  */

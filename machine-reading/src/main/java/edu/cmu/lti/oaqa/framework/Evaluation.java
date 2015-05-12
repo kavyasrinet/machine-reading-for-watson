@@ -93,10 +93,14 @@ public class Evaluation {
 				// if contain one candidate answer, then this question can
 				// be answered
 				for (int k = 0; k < answers.size(); k++) {
+					try{
 					if (temp.getString("text").contains(answers.get(k))) {
 						tempDataSet.remove(i);
 						answers = null;
 						break;
+					}
+					}catch(Exception e){
+						
 					}
 				}
 				

@@ -57,7 +57,8 @@ public class WatsonMachineReader implements MachineReader
 		testData = rd.readQuestionData(prop.getProperty("q_test").trim(), prop.getProperty("a_test").trim());
 
 		Evaluation e = new Evaluation(developmentData, testData);
-		e.BinaryAnswerRecallWatson("Test");
+		e.BinaryAnswerRecallWatson("Development");
+		Evaluation.setVerbose(true);
 	}
 
 }
