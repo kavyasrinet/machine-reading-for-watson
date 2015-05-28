@@ -68,7 +68,7 @@ public class QueryExtractor {
 			String[] terms = sent.split(" ");
 			
 			for(int i = 0; i < terms.length-1; i++){
-				String bigram = terms[i]; // + " " + terms[i+1];
+				String bigram = terms[i] + " " + terms[i+1];
 				double count = 1.0;
 				if(bigram.charAt(0) >= 'A' && bigram.charAt(0) <= 'Z')
 					count = 5.0;
@@ -145,6 +145,13 @@ public class QueryExtractor {
         	seeds.add(s);
         }
         
+		return seeds;
+	}
+	public ArrayList<Seed> TFIDF(Corpus corpus){
+		ArrayList<Seed> seeds = new ArrayList<Seed>();
+		
+		
+		
 		return seeds;
 	}
 //	public ArrayList<String> TFIDF(String corpus_path,HashMap<String,String> queries, int topK) throws IOException{	
