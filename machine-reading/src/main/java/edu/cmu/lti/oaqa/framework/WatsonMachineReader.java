@@ -3,6 +3,7 @@ package edu.cmu.lti.oaqa.framework;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
@@ -15,7 +16,7 @@ public class WatsonMachineReader implements MachineReader
 	static ArrayList<QuestionData> testData;
 	static WatsonMRState rootState;
 	public static String settingPath = "src/main/config/setting";
-	@Override
+
 	public void initializeReader(ArrayList<QuestionData> TrainingData)
 	{
 		ArrayList<Seed> Seeds = new ArrayList<Seed>();
@@ -34,10 +35,11 @@ public class WatsonMachineReader implements MachineReader
 		
 	}
 	
-	public void machineread()
+	public static void machineread() throws FileNotFoundException, IOException, URISyntaxException
 	{
 		
 		WatsonMRState current_state = rootState;
+		
 		while(!current_state.isDoneReading())
 		{
 			current_state = (WatsonMRState)current_state.transition();
@@ -55,10 +57,18 @@ public class WatsonMachineReader implements MachineReader
 		trainingData = rd.readQuestionData(prop.getProperty("q_training").trim(), prop.getProperty("a_training").trim());
 		developmentData = rd.readQuestionData(prop.getProperty("q_development").trim(), prop.getProperty("a_development").trim());
 		testData = rd.readQuestionData(prop.getProperty("q_test").trim(), prop.getProperty("a_test").trim());
-
-		Evaluation e = new Evaluation(developmentData, testData);
-		e.BinaryAnswerRecallWatson("Development");
-		Evaluation.setVerbose(true);
+		
+//		Evaluation e = new Evaluation(developmentData, testData);
+//		e.BinaryAnswerRecallWatson("Development");
+//		Evaluation.setVerbose(true);
+		
+		
+		WatsonMachineReader wmr = new WatsonMachineReader();
+		wmr.initializeReader(trainingData);
+		
+		System.out.println(rootState);
+		
+		machineread();
 	}
 
 }

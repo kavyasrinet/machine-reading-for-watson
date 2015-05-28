@@ -68,7 +68,7 @@ public class ReadData {
 
 		} while (scan.hasNext());
 		scan.close();
-
+	
 		return answer;
 	}
 

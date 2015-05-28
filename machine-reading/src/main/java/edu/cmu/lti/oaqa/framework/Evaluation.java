@@ -17,19 +17,20 @@ public class Evaluation {
 		VERBOSE = flag;
 	}
 
-	public Evaluation(ArrayList<QuestionData> devSet,
-			ArrayList<QuestionData> testSet) {
-		Evaluation.developmentSet = devSet;
-		Evaluation.testSet = testSet;
-	}
 
-	public Evaluation(Corpus corpus) {
+	public Evaluation(Corpus corpus,ArrayList<QuestionData> devSet,
+			ArrayList<QuestionData> testSet) {
 		this.documents = corpus.getDocs();
+		this.developmentSet = devSet;
+		this.testSet = testSet;
 	}
 
 	private double computeBinaryAnswerRecall(ArrayList<QuestionData> dataSet) {
+		if(dataSet == null){
+			return 0.0;
+		}
 		if (dataSet.size() == 0) {
-			return 0;
+			return 0.0;
 		}
 		// create a temp List to compute the BAR
 		ArrayList<QuestionData> tempDataSet = new ArrayList<QuestionData>(

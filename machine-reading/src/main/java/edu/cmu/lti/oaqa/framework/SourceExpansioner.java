@@ -1,5 +1,7 @@
 package edu.cmu.lti.oaqa.framework;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -40,26 +42,32 @@ public class SourceExpansioner {
 	 * 
 	 * @return List of retrieved documents.
 	 */
-	public ArrayList<Document> sourceExpansion(HashMap<String, String> questions,
+	public Corpus sourceExpansion(HashMap<String, String> questions,
 			HashMap<String, HashSet<String>> answers,
 	        int retrieveNum) throws URISyntaxException,
 			IOException {
 		// expanded corpus
+		Corpus corpus = new Corpus();
 		ArrayList<Document> newCorpus = new ArrayList<Document>();
+		
 		
 		if(VERBOSE)
 			System.out.println("Source Expansion...");
 		
+		
+		
 		if (questions.size() == 0) {
 			System.out.println("Empty questions list");
-			return newCorpus;
+			return corpus;
 		}
-
+		
+		
+		
 		BingSearchAgent bsa = new BingSearchAgent();
 		bsa.initialize(accountKey);
 		// set retrieve document size
 		bsa.setResultSetSize(retrieveNum);
-
+		
 		ArrayList<String> keyTerms = new ArrayList<>();
 		ArrayList<String> keyPhrases = new ArrayList<>();
 		keyTerms.add("dummy");
@@ -78,7 +86,8 @@ public class SourceExpansioner {
 				// add to newCorpus
 				newCorpus.add(new Document(rr));	
 			}
-
+			System.out.println(result.size());
+			
 			// do source expansion on answer
 			if (answers != null && answers.size() != 0) {
 				HashSet<String> answer = answers.get(qid);
@@ -93,9 +102,59 @@ public class SourceExpansioner {
 			}
 		}
 		
-		return newCorpus;
+//		FileWriter fw = new FileWriter(new File("urls.txt"));
+//		for(Document doc : newCorpus){	
+//			fw.write(doc.getUrl()+"\n");
+//		}
+//		fw.close();
+		
+		corpus.setDocs(newCorpus);
+		return corpus;
+//		return newCorpus;
 	}
+	public Corpus sourceExpansionSeed(ArrayList<Seed> seeds,int retrieveNum) throws URISyntaxException{
+		Corpus corpus = new Corpus();
+		
+		ArrayList<Document> newCorpus = new ArrayList<Document>();
+		
+		if(VERBOSE)
+			System.out.println("Source Expansion...");
+		
+		BingSearchAgent bsa = new BingSearchAgent();
+		bsa.initialize(accountKey);
+		// set retrieve document size
+		bsa.setResultSetSize(retrieveNum);
+		
+		ArrayList<String> keyTerms = new ArrayList<>();
+		ArrayList<String> keyPhrases = new ArrayList<>();
+		keyTerms.add("dummy");
 
+		for (int i = 0; i < seeds.size(); i++) {
+			
+			Seed seed = seeds.get(i);
+			
+			if(VERBOSE){
+				System.out.println("Processing question:\n" + seed.getQuery());
+			}
+			
+			// Get the results from bing search
+			List<RetrievalResult> result = bsa.retrieveDocuments(String.valueOf(i),
+					seed.getQuery(), keyTerms, keyPhrases);
+			
+			for (int j = 0; j < result.size(); j++) {
+				RetrievalResult rr = result.get(j);
+				// add to newCorpus
+				newCorpus.add(new Document(rr));	
+			}
+			
+			System.out.println(result.size());
+			
+		}
+		
+		corpus.setDocs(newCorpus);
+		return corpus;
+	}
+	
 	public void setCorpusPath(String path) {
 		this.corpusPath = path;
 	}
